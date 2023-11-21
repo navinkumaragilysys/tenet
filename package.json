@@ -1,0 +1,26 @@
+{
+  "name": "@navinkumar/learning",
+  "private": true,
+  "dependencies": {
+    "@types/lodash": "^4.14.194",
+    "copyfiles": "^2.4.1",
+    "dotenv": "^16.0.3",
+    "lerna": "^7.1.1",
+    "rimraf": "^5.0.1"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run --since --include-merged-tags build",
+    "build-all": "lerna run build",
+    "clean-all": "lerna run clean && npx rimraf node_modules",
+    "dist": "lerna run --since --include-merged-tags dist",
+    "dist-all": "lerna run dist"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2"
+  }
+}
