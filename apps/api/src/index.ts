@@ -1,16 +1,53 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const http = require('http');
+/* eslint-disable no-console */
+import { CloudEvent, HTTP } from "cloudevents";
 
-dotenv.config();
+export function doSomeStuff(): void {
 
-const app = express();
-const port = process.env.PORT;
+  console.log("My structured event:", new CloudEvent({
+      source: "/source",
+      type: "type",
+      datacontenttype: "text/plain",
+      dataschema: "https://d.schema.com/my.json",
+      subject: "cha.json",
+      data: "my-data",
+      extension1: "some extension data",
+    }));
 
-app.get('/', (req:any, res:any) => {
-  res.send('Express + TypeScript Server');
-});
+  // ------ receiver structured
+  // The header names should be standarized to use lowercase
+  const headers = {
+    "content-type": "application/cloudevents+avro; charset=UTF-8",
+  };
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+  // Typically used with an incoming HTTP request where myevent.format() is the actual
+  // body of the HTTP
+  console.log("Received structured event:", HTTP.toEvent({ headers, body: new CloudEvent({
+    source: "/source",
+    type: "type",
+    datacontenttype: "text/plain",
+    dataschema: "https://d.schema.com/my.json",
+    subject: "cha.json",
+    data: "my-data",
+    extension1: "some extension data",
+  }) }));
+
+  // ------ receiver binary
+  const data = {
+    data: "dataString",
+  };
+  const attributes = {
+    "ce-type": "type",
+    "ce-specversion": "1.0",
+    "ce-source": "source",
+    "ce-id": "id",
+    "ce-time": "2019-06-16T11:42:00Z",
+    "ce-dataschema": "http://schema.registry/v1",
+    "Content-Type": "application/json",
+    "ce-extension1": "extension1",
+  };
+
+  console.log("My binary event:", HTTP.toEvent({ headers: attributes, body: data }));
+  console.log("My binary event extensions:", HTTP.toEvent({ headers: attributes, body: data }));
+}
+
+doSomeStuff();

@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.194",
+    "cloudevents": "^8.0.0",
     "copyfiles": "^2.4.1",
     "dotenv": "^16.0.3",
     "lerna": "^7.1.1",
