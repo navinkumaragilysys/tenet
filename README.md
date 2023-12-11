@@ -176,3 +176,72 @@ CREATE TABLE Payroll (
     Enabled BIT NOT NULL
 );
 ```
+
+## Chart
+
+
+```mermaid
+graph LR
+A[Employee] -- 1:n --> B((Payroll))
+A -- 1:n --> C((Rates))
+A -- 1:n --> D((Deductions))
+A -- 1:n --> E((Earnings))
+A -- 1:n --> F((Leave))
+```
+
+## create a Class diagrams for the tables
+
+```mermaid
+classDiagram
+    Employee <|-- Payroll
+    Employee <|-- Rates
+    Employee <|-- Deductions
+    Employee <|-- Earnings
+    Employee <|-- Leave
+    class Employee{
+        +int ID
+        +varchar(50) FirstName
+        +varchar(50) MiddleName
+        +varchar(50) LastName
+        +varchar(50) Address
+        +varchar(50) City
+        +varchar(50) State
+        +varchar(50) Zip
+        +varchar(50) Phone
+        +varchar(50) Email
+        +varchar(50) GovernmentID
+        +bit IdVerified
+        +date Joined
+    }
+    class Payroll{
+        +int ID
+        +int EmployeeID
+        +int Salary
+        +bit Enabled
+    }
+    class Rates{
+        +int ID
+        +int RateType
+        +decimal(18,2) PayRate
+        +bit Enabled
+    }
+    class Deductions{
+        +int ID
+        +varchar(50) Description
+        +decimal(18,2) Amount
+        +bit Enabled
+    }
+    class Earnings{
+        +int ID
+        +varchar(50) Description
+        +decimal(18,2) Amount
+        +bit Enabled
+    }
+    class Leave{
+        +int ID
+        +varchar(50) Description
+        +decimal(5,2) Earned
+        +decimal(5,2) Used
+        +bit Enabled
+    }
+```
