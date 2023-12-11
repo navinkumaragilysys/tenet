@@ -189,7 +189,7 @@ A -- 1:n --> E((Earnings))
 A -- 1:n --> F((Leave))
 ```
 
-## create a Class diagrams for the tables
+## Class diagrams.
 
 ```mermaid
 classDiagram
