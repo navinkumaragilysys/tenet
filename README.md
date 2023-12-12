@@ -263,24 +263,99 @@ CREATE TABLE BankDetails (
 ## Chart
 
 
-### Relationship diagram.
-
+### Relationship diagram with field names.
+    
 ```mermaid
 erDiagram
-    Employee ||--o{ Payroll : "1" 
-    Employee ||--o{ Rates : "1" 
-    Employee ||--o{ Deductions : "1" 
-    Employee ||--o{ Earnings : "1" 
-    Employee ||--o{ Leave : "1" 
-    Employee ||--o{ Payment : "1" 
-    Employee ||--o{ BankDetails : "1" 
-    Payroll ||--o{ Payment : "1" 
-    Rates ||--o{ Payment : "1" 
-    Deductions ||--o{ Payment : "1" 
-    Earnings ||--o{ Payment : "1" 
-    Leave ||--o{ Payment : "1" 
-    BankDetails ||--o{ Payment : "1" 
+    Employee ||--o{ Payroll : "ID"
+    Employee ||--o{ Rates : "ID"
+    Employee ||--o{ Deductions : "ID"
+    Employee ||--o{ Earnings : "ID"
+    Employee ||--o{ Leave : "ID"
+    Employee ||--o{ Payment : "ID"
+    Employee ||--o{ BankDetails : "ID"
+    Payroll ||--o{ Payment : "ID"
+    Rates ||--o{ Payment : "ID"
+    Deductions ||--o{ Payment : "ID"
+    Earnings ||--o{ Payment : "ID"
+    Leave ||--o{ Payment : "ID"
+    BankDetails ||--o{ Payment : "ID"
+    Employee {
+        ID int
+        FirstName varchar(50)
+        MiddleName varchar(50)
+        LastName varchar(50)
+        Address varchar(50)
+        City varchar(50)
+        State varchar(50)
+        Zip varchar(50)
+        Phone varchar(50)
+        Email varchar(50)
+        GovernmentID varchar(50)
+        IdVerified bit
+        Joined date
+    }
+    Payroll {
+        ID int
+        EmployeeID int
+        Salary int
+        Enabled bit
+    }
+    Rates {
+        ID int
+        RateType int
+        PayRate decimal(18,2)
+        Enabled bit
+    }
+    Deductions {
+        ID int
+        Description varchar(50)
+        Amount decimal(18,2)
+        Enabled bit
+    }
+    Earnings {
+        ID int
+        Description varchar(50)
+        Amount decimal(18,2)
+        Enabled bit
+    }
+    Leave {
+        ID int
+        Description varchar(50)
+        Earned decimal(5,2)
+        Used decimal(5,2)
+        Enabled bit
+    }
+    Payment {
+        ID int
+        EmployeeID int
+        BankDetailsID int
+        PaymentDate date
+        PaymentAmount decimal(18,2)
+        PaymentType int
+        PaymentMode int
+        PaymentReference varchar(50)
+        PaymentStatus int
+        PaymentRemarks varchar(50)
+    }
+    BankDetails {
+        ID int
+        EmployeeID int
+        BankName varchar(50)
+        BankBranch varchar(50)
+        BankCode varchar(50)
+        BankAccountNumber varchar(50)
+        BankAccountType int
+        BankAccountHolderName varchar(50)
+        BankAccountHolderAddress varchar(50)
+        BankAccountHolderCity varchar(50)
+        BankAccountHolderState varchar(50)
+        BankAccountHolderZip varchar(50)
+        BankAccountHolderPhone varchar(50)
+        BankAccountHolderEmail varchar(50)
+    }
 ```
+
 
 ### Class diagrams.
     
