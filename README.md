@@ -55,7 +55,7 @@ CREATE TABLE Employee (
     Phone VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
     GovernmentID VARCHAR(50) NOT NULL,
-    IdVerified BIT NOT NULL,
+    IdVerified BIT NOT NULL default 0,
     Joined DATE NOT NULL
 );
 ```
