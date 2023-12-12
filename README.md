@@ -228,6 +228,7 @@ This table will have the details about the bank account of the employee. each en
 | EmployeeID | int | Foreign key for the employee table | `yes` |
 | BankName | varchar(50) | Name of the bank | `yes` |
 | BankBranch | varchar(50) | Branch of the bank | `yes` |
+| BankCode | varchar(50) | Code of the bank | `yes` |
 | BankAccountNumber | varchar(50) | Account number of the bank | `yes` |
 | BankAccountType | int | Type of the bank account. 1 for savings, 2 for current | `yes` |
 | BankAccountHolderName | varchar(50) | Name of the bank account holder | `yes` |
@@ -246,6 +247,7 @@ CREATE TABLE BankDetails (
     EmployeeID INT NOT NULL,
     BankName VARCHAR(50) NOT NULL,
     BankBranch VARCHAR(50) NOT NULL,
+    BankCode VARCHAR(50) NOT NULL,
     BankAccountNumber VARCHAR(50) NOT NULL,
     BankAccountType INT NOT NULL,
     BankAccountHolderName VARCHAR(50) NOT NULL,
@@ -265,19 +267,19 @@ CREATE TABLE BankDetails (
 
 ```mermaid
 erDiagram
-    Employee ||--o{ Payroll : has
-    Employee ||--o{ Rates : has
-    Employee ||--o{ Deductions : has
-    Employee ||--o{ Earnings : has
-    Employee ||--o{ Leave : has
-    Employee ||--o{ Payment : has
-    Employee ||--o{ BankDetails : has
-    Payroll ||--o{ Payment : has
-    Rates ||--o{ Payment : has
-    Deductions ||--o{ Payment : has
-    Earnings ||--o{ Payment : has
-    Leave ||--o{ Payment : has
-    BankDetails ||--o{ Payment : has
+    Employee ||--o{ Payroll : "1" 
+    Employee ||--o{ Rates : "1" 
+    Employee ||--o{ Deductions : "1" 
+    Employee ||--o{ Earnings : "1" 
+    Employee ||--o{ Leave : "1" 
+    Employee ||--o{ Payment : "1" 
+    Employee ||--o{ BankDetails : "1" 
+    Payroll ||--o{ Payment : "1" 
+    Rates ||--o{ Payment : "1" 
+    Deductions ||--o{ Payment : "1" 
+    Earnings ||--o{ Payment : "1" 
+    Leave ||--o{ Payment : "1" 
+    BankDetails ||--o{ Payment : "1" 
 ```
 
 ### Class diagrams.
@@ -299,83 +301,84 @@ classDiagram
     BankDetails <|-- Payment
     class Employee{
         <<entity>>
-        int ID
-        string FirstName
-        string MiddleName
-        string LastName
-        string Address
-        string City
-        string State
-        string Zip
-        string Phone
-        string Email
-        string GovernmentID
-        bool IdVerified
-        date Joined
+        ID
+        FirstName
+        MiddleName
+        LastName
+        Address
+        City
+        State
+        Zip
+        Phone
+        Email
+        GovernmentID
+        IdVerified
+        Joined
     }
     class Payroll{
         <<entity>>
-        int ID
-        int EmployeeID
-        int Salary
-        bool Enabled
+        ID
+        EmployeeID
+        Salary
+        Enabled
     }
     class Rates{
         <<entity>>
-        int ID
-        int RateType
-        decimal PayRate
-        bool Enabled
+        ID
+        RateType
+        PayRate
+        Enabled
     }
     class Deductions{
         <<entity>>
-        int ID
-        string Description
-        decimal Amount
-        bool Enabled
+        ID
+        Description
+        Amount
+        Enabled
     }
     class Earnings{
         <<entity>>
-        int ID
-        string Description
-        decimal Amount
-        bool Enabled
+        ID
+        Description
+        Amount
+        Enabled
     }
     class Leave{
         <<entity>>
-        int ID
-        string Description
-        decimal Earned
-        decimal Used
-        bool Enabled
+        ID
+        Description
+        Earned
+        Used
+        Enabled
     }
     class Payment{
         <<entity>>
-        int ID
-        int EmployeeID
-        int BankDetailsID
-        date PaymentDate
-        decimal PaymentAmount
-        int PaymentType
-        int PaymentMode
-        string PaymentReference
-        int PaymentStatus
-        string PaymentRemarks
+        ID
+        EmployeeID
+        BankDetailsID
+        PaymentDate
+        PaymentAmount
+        PaymentType
+        PaymentMode
+        PaymentReference
+        PaymentStatus
+        PaymentRemarks
     }
     class BankDetails{
         <<entity>>
-        int ID
-        int EmployeeID
-        string BankName
-        string BankBranch
-        string BankAccountNumber
-        int BankAccountType
-        string BankAccountHolderName
-        string BankAccountHolderAddress
-        string BankAccountHolderCity
-        string BankAccountHolderState
-        string BankAccountHolderZip
-        string BankAccountHolderPhone
-        string BankAccountHolderEmail
+        ID
+        EmployeeID
+        BankName
+        BankBranch
+        BankCode
+        BankAccountNumber
+        BankAccountType
+        BankAccountHolderName
+        BankAccountHolderAddress
+        BankAccountHolderCity
+        BankAccountHolderState
+        BankAccountHolderZip
+        BankAccountHolderPhone
+        BankAccountHolderEmail
     }
 ```
