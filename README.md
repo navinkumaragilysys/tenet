@@ -10,6 +10,8 @@ This project is a payroll system that allows the user to enter employee informat
   * [Earnings lookup](#earnings-lookup)
   * [Leave lookup](#leave-lookup)
   * [Payroll](#payroll)
+  * [Payment](#payment)
+  * [Bank Details](#bank-details)
 * [Usage](#usage)
 * [Chart](#chart)
     * [Relationship diagram](#relationship-diagram)
@@ -179,22 +181,107 @@ CREATE TABLE Payroll (
 );
 ```
 
+## Payment
+This table will have the details about the payment made to the employee. each entry in the table is a payment made to an employee.
+
+> [!NOTE]
+> *This table will have the details about the payment made to the employee. each entry in the table is a payment made to an employee. It will have the employee id, payment date, payment amount, payment type, payment mode, payment reference, payment status, payment remarks.*
+
+| Column Name | Data Type | Description | required |
+| ----------- | --------- | ----------- | -------- |
+| ID | int | Primary key for the employee table | `yes` |
+| EmployeeID | int | Foreign key for the employee table | `yes` |
+| BankDetailsID | int | Foreign key for the bank details table | `yes` |
+| PaymentDate | date | Date of the payment | `yes` |
+| PaymentAmount | decimal(18,2) | Amount of the payment | `yes` |
+| PaymentType | int | Type of the payment. 1 for salary, 2 for deduction, 3 for earning, 4 for leave | `yes` |
+| PaymentMode | int | Mode of the payment. 1 for cash, 2 for check, 3 for bank transfer | `yes` |
+| PaymentReference | varchar(50) | Reference of the payment | `yes` |
+| PaymentStatus | int | Status of the payment. 1 for paid, 2 for unpaid | `yes` |
+| PaymentRemarks | varchar(50) | Remarks of the payment | `yes` |
+
+### Script
+```sql
+CREATE TABLE Payment (
+    ID SERIAL PRIMARY KEY,
+    EmployeeID INT NOT NULL,
+    PaymentDate DATE NOT NULL,
+    PaymentAmount DECIMAL(18,2) NOT NULL,
+    PaymentType INT NOT NULL,
+    PaymentMode INT NOT NULL,
+    PaymentReference VARCHAR(50) NOT NULL,
+    PaymentStatus INT NOT NULL,
+    PaymentRemarks VARCHAR(50) NOT NULL
+);
+```
+
+## Bank Details
+This table will have the details about the bank account of the employee. each entry in the table is a bank account of an employee.
+
+> [!NOTE]
+> *This table will have the details about the bank account of the employee. each entry in the table is a bank account of an employee. It will have the employee id, bank name, bank branch, bank account number, bank account type, bank account holder name, bank account holder address, bank account holder city, bank account holder state, bank account holder zip, bank account holder phone, bank account holder email.*
+
+
+| Column Name | Data Type | Description | required |
+| ----------- | --------- | ----------- | -------- |
+| ID | int | Primary key for the employee table | `yes` |
+| EmployeeID | int | Foreign key for the employee table | `yes` |
+| BankName | varchar(50) | Name of the bank | `yes` |
+| BankBranch | varchar(50) | Branch of the bank | `yes` |
+| BankAccountNumber | varchar(50) | Account number of the bank | `yes` |
+| BankAccountType | int | Type of the bank account. 1 for savings, 2 for current | `yes` |
+| BankAccountHolderName | varchar(50) | Name of the bank account holder | `yes` |
+| BankAccountHolderAddress | varchar(50) | Address of the bank account holder | `yes` |
+| BankAccountHolderCity | varchar(50) | City of the bank account holder | `yes` |
+| BankAccountHolderState | varchar(50) | State of the bank account holder | `yes` |
+| BankAccountHolderZip | varchar(50) | Zip of the bank account holder | `yes` |
+| BankAccountHolderPhone | varchar(50) | Phone of the bank account holder | `yes` |
+| BankAccountHolderEmail | varchar(50) | Email of the bank account holder | `yes` |
+
+
+### Script
+```sql
+CREATE TABLE BankDetails (
+    ID SERIAL PRIMARY KEY,
+    EmployeeID INT NOT NULL,
+    BankName VARCHAR(50) NOT NULL,
+    BankBranch VARCHAR(50) NOT NULL,
+    BankAccountNumber VARCHAR(50) NOT NULL,
+    BankAccountType INT NOT NULL,
+    BankAccountHolderName VARCHAR(50) NOT NULL,
+    BankAccountHolderAddress VARCHAR(50) NOT NULL,
+    BankAccountHolderCity VARCHAR(50) NOT NULL,
+    BankAccountHolderState VARCHAR(50) NOT NULL,
+    BankAccountHolderZip VARCHAR(50) NOT NULL,
+    BankAccountHolderPhone VARCHAR(50) NOT NULL,
+    BankAccountHolderEmail VARCHAR(50) NOT NULL
+);
+```
+
 ## Chart
 
 
 ### Relationship diagram.
 
 ```mermaid
-graph LR
-A[Employee] -- 1:n --> B((Payroll))
-A -- 1:n --> C((Rates))
-A -- 1:n --> D((Deductions))
-A -- 1:n --> E((Earnings))
-A -- 1:n --> F((Leave))
+erDiagram
+    Employee ||--o{ Payroll : has
+    Employee ||--o{ Rates : has
+    Employee ||--o{ Deductions : has
+    Employee ||--o{ Earnings : has
+    Employee ||--o{ Leave : has
+    Employee ||--o{ Payment : has
+    Employee ||--o{ BankDetails : has
+    Payroll ||--o{ Payment : has
+    Rates ||--o{ Payment : has
+    Deductions ||--o{ Payment : has
+    Earnings ||--o{ Payment : has
+    Leave ||--o{ Payment : has
+    BankDetails ||--o{ Payment : has
 ```
 
 ### Class diagrams.
-
+    
 ```mermaid
 classDiagram
     Employee <|-- Payroll
@@ -202,50 +289,93 @@ classDiagram
     Employee <|-- Deductions
     Employee <|-- Earnings
     Employee <|-- Leave
+    Employee <|-- Payment
+    Employee <|-- BankDetails
+    Payroll <|-- Payment
+    Rates <|-- Payment
+    Deductions <|-- Payment
+    Earnings <|-- Payment
+    Leave <|-- Payment
+    BankDetails <|-- Payment
     class Employee{
-        +int ID
-        +varchar(50) FirstName
-        +varchar(50) MiddleName
-        +varchar(50) LastName
-        +varchar(50) Address
-        +varchar(50) City
-        +varchar(50) State
-        +varchar(50) Zip
-        +varchar(50) Phone
-        +varchar(50) Email
-        +varchar(50) GovernmentID
-        +bit IdVerified
-        +date Joined
+        <<entity>>
+        int ID
+        string FirstName
+        string MiddleName
+        string LastName
+        string Address
+        string City
+        string State
+        string Zip
+        string Phone
+        string Email
+        string GovernmentID
+        bool IdVerified
+        date Joined
     }
     class Payroll{
-        +int ID
-        +int EmployeeID
-        +int Salary
-        +bit Enabled
+        <<entity>>
+        int ID
+        int EmployeeID
+        int Salary
+        bool Enabled
     }
     class Rates{
-        +int ID
-        +int RateType
-        +decimal(18,2) PayRate
-        +bit Enabled
+        <<entity>>
+        int ID
+        int RateType
+        decimal PayRate
+        bool Enabled
     }
     class Deductions{
-        +int ID
-        +varchar(50) Description
-        +decimal(18,2) Amount
-        +bit Enabled
+        <<entity>>
+        int ID
+        string Description
+        decimal Amount
+        bool Enabled
     }
     class Earnings{
-        +int ID
-        +varchar(50) Description
-        +decimal(18,2) Amount
-        +bit Enabled
+        <<entity>>
+        int ID
+        string Description
+        decimal Amount
+        bool Enabled
     }
     class Leave{
-        +int ID
-        +varchar(50) Description
-        +decimal(5,2) Earned
-        +decimal(5,2) Used
-        +bit Enabled
+        <<entity>>
+        int ID
+        string Description
+        decimal Earned
+        decimal Used
+        bool Enabled
+    }
+    class Payment{
+        <<entity>>
+        int ID
+        int EmployeeID
+        int BankDetailsID
+        date PaymentDate
+        decimal PaymentAmount
+        int PaymentType
+        int PaymentMode
+        string PaymentReference
+        int PaymentStatus
+        string PaymentRemarks
+    }
+    class BankDetails{
+        <<entity>>
+        int ID
+        int EmployeeID
+        string BankName
+        string BankBranch
+        string BankAccountNumber
+        int BankAccountType
+        string BankAccountHolderName
+        string BankAccountHolderAddress
+        string BankAccountHolderCity
+        string BankAccountHolderState
+        string BankAccountHolderZip
+        string BankAccountHolderPhone
+        string BankAccountHolderEmail
     }
 ```
