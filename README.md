@@ -12,6 +12,8 @@ This project is a payroll system that allows the user to enter employee informat
   * [Payroll](#payroll)
 * [Usage](#usage)
 * [Chart](#chart)
+    * [Relationship diagram](#relationship-diagram)
+    * [Class diagrams](#class-diagrams)
 
 ## Tables
 
@@ -76,7 +78,7 @@ CREATE TABLE Rates (
     ID SERIAL PRIMARY KEY,
     RateType INT NOT NULL,
     PayRate DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL
+    Enabled BIT NOT NULL default 1
 );
 ```
 ## Deductions lookup.
@@ -98,7 +100,7 @@ CREATE TABLE Deductions (
     ID SERIAL PRIMARY KEY,
     Description VARCHAR(50) NOT NULL,
     Amount DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL
+    Enabled BIT NOT NULL default 1
 );
 ```
 ## Earnings lookup.
@@ -120,7 +122,7 @@ CREATE TABLE Earnings (
     ID SERIAL PRIMARY KEY,
     Description VARCHAR(50) NOT NULL,
     Amount DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL
+    Enabled BIT NOT NULL default 1
 );
 ```
 ## Leave lookup.
@@ -151,7 +153,7 @@ CREATE TABLE Leave (
     Description VARCHAR(50) NOT NULL,
     Earned DECIMAL(5,2) NOT NULL,
     Used DECIMAL(5,2) NOT NULL,
-    Enabled BIT NOT NULL
+    Enabled BIT NOT NULL default 1
 );
 ```
 ## Payroll
@@ -173,12 +175,14 @@ CREATE TABLE Payroll (
     ID SERIAL PRIMARY KEY,
     EmployeeID INT NOT NULL,
     Salary INT NOT NULL,
-    Enabled BIT NOT NULL
+    Enabled BIT NOT NULL default 1
 );
 ```
 
 ## Chart
 
+
+### Relationship diagram.
 
 ```mermaid
 graph LR
@@ -189,7 +193,7 @@ A -- 1:n --> E((Earnings))
 A -- 1:n --> F((Leave))
 ```
 
-## Class diagrams.
+### Class diagrams.
 
 ```mermaid
 classDiagram
