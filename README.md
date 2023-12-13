@@ -2,6 +2,14 @@
 ## Description
 This project is a payroll[^1] [^2]  system[^3] that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
 
+> [!WARNING]
+> Advisory: Information relates to the law prevailing in the year of publication/ as indicated . Viewers are advised to ascertain the correct position/prevailing law before relying upon any document.​
+​​
+
+> [!CAUTION]
+> Disclaimer:The above calculator is only to enable public to have a quick and an easy access to basic tax calculation and does not purport to give correct tax calculation in all circumstances. It is advised that for filing of returns the exact calculation may be made as per the provisions contained in the relevant Acts, Rules etc.
+
+
 ## Table of Contents
 * [Tables](#tables)
   * [Employee](#employee)
