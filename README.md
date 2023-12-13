@@ -85,9 +85,68 @@ CREATE TABLE Rates (
 ```
 ## Deductions lookup.
 
+<details>
+<summary>These are permissible deductions according to the Finance Act, 2015:</summary>
+
+- §80C – Up to ₹ 150,000:
+    - Provident and Voluntary Provident Funds (VPF)
+    - Public Provident Fund (PPF)
+    - Life-insurance premiums
+    - Equity-Linked Savings Scheme (ELSS)
+    - Home-loan principal repayment
+    - Stamp duty and registration fees for a home
+    - Sukanya Samriddhi Account
+    - National Savings Certificate (NSC) (VIII Issue)
+    - Infrastructure bonds
+- §80CCC – Life Insurance Corporation annuity premiums up to ₹ 150,000
+- §80CCD – Employee pension contributions, up to 10 percent of salary
+- §80CCG – Rajiv Gandhi Equity Savings Scheme, 2013: 50 percent of investment or ₹25,000 (whichever is lower), up to ₹ 50,000
+- §80D – Medical-insurance premium, up to ₹ 25,000 for self/family and up to ₹ 15,000 for parents (up to ₹ 50,000 for senior citizens); premium cannot be paid in cash.
+- §80DD – Expenses for medical treatment (including nursing), training and rehabilitation of a permanently-disabled dependent, up to ₹ 75,000 (₹ 1,25,000 for a severe disability, as defined by law)
+- §80DDB – Medical expenses, up to ₹ 40,000 (₹ 100,000 for senior citizens)
+- §80E – Student-loan interest
+- §80EE – Home-loan interest (up to 100,000 on a loan up to ₹ 2.5 million)
+- §80G – Charitable contributions (50 or 100 percent)
+- §80GG – Rent minus 10 percent of income, up to ₹ 5,000 per month or 25 percent of income (whatever is less)[16]
+- §80TTA – Interest on savings, up to ₹ 10,000
+- §80TTB – Time deposit interest for senior citizens, up to ₹ 50,000
+- 80U – Certified-disability deduction (₹ 75,000; ₹ 125,000 for a severe disability)
+- §87A – Rebate (up to ₹ 12,500) for individuals with income up to ₹ 5,00,000
+- 80RRB – Certified royalties on a patent registered on or after 1 April 2003, up to ₹ 300,000
+- §80QQB – Certified book royalties (except textbooks), up to ₹ 300,000
+</details>
+
 This table will have the details about detections that are applicable. each entry in the table can be mapped to a employee
 > [!NOTE]
 > *Income tax, Professional tax, Provident fund, Employee State Insurance, Other deductions*
+
+## Tax deduction at source (TDS)
+Income tax is also paid by tax deduction at source (TDS): [^4]
+
+| Section |	Payment | TDS threshold | 	TDS |
+| ------- | -------- | ------------- | ---- |
+|192	| Salary	    | Exemption limit	| As specified in Part III of I Schedule |
+|193	| Interest on securities |	Subject to provisions |	10% |
+|194A	| Other interest	| Banks – ₹10,000 (under age 60); ₹ 50,000 (over 60). All other interest – ₹5,000 |	10% |
+|194B	| Lottery winnings	| ₹10,000 |	30% |
+|194BB	| Horse-racing winnings |	₹10,000 |	30% |
+|194C	| Payment to resident contractors |	₹30,000 (single contract); ₹100,000 (multiple contracts) |	2% (companies); 1% otherwise |
+|194D	| Insurance commission |	₹15,000 |	5% (individual), 10% (domestic companies) |
+|194DA	| Life-insurance payment |	₹100,000 |	1% |
+|194E	| Payment to non-resident sportsmen or sports association |	Not applicable |	20% |
+|194EE	| Payment of deposit under National Savings Scheme |	₹2,500 |	10% |
+|194F	| Repurchase of unit by Mutual Fund or Unit Trust of India |	Not applicable |	20% |
+|194G	| Commission on sale of lottery tickets |	₹15,000 |	5% |
+|194H	| Brokerage commission |	₹15,000 |	5% |
+|194-I	| Rents	 |₹180,000 |	2% (plant, machinery, equipment), 10% (land, building, furniture) |
+|194IA	| Purchase of immovable property |	₹5,000,000 |	1% |
+|194IB	| Rent by individual or HUF not liable to tax audit |	₹50,000 |	5% |
+|194J	| Professional or technical services, royalties |	₹30,000 |	10% |
+|194LA	| Compensation on acquisition of certain immovable property |	₹250,000 | 10% |
+|194LB	| Interest paid by Infrastructure Development Fund under section 10(47) to non-resident or foreign company |	– |	5% |
+|194LC	| Interest paid by Indian company or business trust on money borrowed in foreign currency under a loan agreement or long-term bonds |	– |	5% |
+|195	| Interest or other amounts paid to non-residents or a foreign company (except under §115O) |	As computed by assessing officer on application under §195(2) or 195(3) |	Avoiding double taxation |
+
 
 | Column Name | Data Type | Description | required |
 | ----------- | --------- | ----------- | -------- |
@@ -262,6 +321,9 @@ CREATE TABLE BankDetails (
 
 ## Chart
 
+<details>
+
+<summary>Sample charts</summary>
 
 ### Relationship diagram with field names.
     
@@ -458,29 +520,33 @@ classDiagram
     }
 ```
 
-## Basic payroll calculation
-This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
+</details>
 
-```math
-\text{Basic Pay} = \text{Pay Rate} \times \text{Hours Worked}
-```
+## Individual Income Tax Slabs
 
-## Basic salary calculation for hourly rate with overtime calculation
-This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
+The proposed Union Budget 2023-24 budget aims to establish the New Tax Regime as the primary tax system, while still allowing the salaried-class taxpayers the choice to opt for the Old Tax Regime and its associated benefits [^5]. Also the tax slabs are different for the new tax regime and old tax regime. The tax slabs for the new tax regime are as follows [^6] [^7].
 
-```math
-\text{Basic Pay} = \text{Pay Rate} \times \text{Hours Worked} + \text{OT Rate} \times \text{OT Hours Worked}
-```
+|Slab  | Tax Rate | New Tax Regime | Old Tax Regime |
+|------|----------|----------------|----------------|
+|1 |	NIL |	₹0 - ₹3 lakh |₹0 - ₹2.5 lakh |
+|2 |	5% |	₹3 lakh - ₹6 lakh |	₹2.5 lakh - ₹5 lakh|
+|3 |	10%	| ₹6 lakh - ₹9 lakh |	₹5 lakh - ₹7.5 lakh|
+|4 |	15%	| ₹9 lakh - ₹12 lakh | ₹7.5 lakh - ₹10 lakh|
+|5 |    20%	| ₹12 lakh - ₹15 lakh |₹10 lakh - ₹12.5 lakh |
+|6 |	25% | Not Applicable | ₹12.5 lakh - ₹15 lakh |
+|7 |	30% | ₹15 lakh and Above |₹15 lakh and Above |
 
-## Salary deduction with income tax calculation
-This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
-
-```math
-\text{Deduction} = \text{Income Tax} + \text{Professional Tax} + \text{Provident Fund} + \text{Employee State Insurance} + \text{Other Deductions}
-```
 
 [^1]: My reference [Writing Efficient Payroll Calculation Formulas](https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#I_efficpay) and [What is payroll software](https://www.oracle.com/in/human-capital-management/payroll/what-is-payroll-software/)
 
 [^2]: [Payroll for India](https://www.oracle.com/in/a/ocom/docs/applications/hcm/oracle-payroll-for-india.pdf)
 
 [^3]: [Payroll](https://www.oracle.com/in/human-capital-management/payroll/#india)
+
+[^4]: [Tax deduction at source](https://en.wikipedia.org/wiki/Income_tax_in_India)
+
+[^5]: [New Tax Regime](https://en.wikipedia.org/wiki/New_Tax_Regime)
+
+[^6]: [INCOME AND TAX CALCULATOR](https://incometaxindia.gov.in/pages/tools/income-tax-calculator.aspx)
+
+[^7]: [TAX CALCULATOR – OLD REGIME vs NEW REGIME](https://incometaxindia.gov.in/Pages/tools/115bac-tax-calculator-finance-act-2023.aspx)
