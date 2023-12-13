@@ -1,6 +1,6 @@
 # Payroll System
 ## Description
-This project is a payroll system that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
+This project is a payroll[^1] system that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
 
 ## Table of Contents
 * [Tables](#tables)
@@ -457,3 +457,5 @@ classDiagram
         BankAccountHolderEmail
     }
 ```
+
+[^1]: My reference (https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#zzbegin).
