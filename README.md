@@ -83,7 +83,7 @@ CREATE TABLE Rates (
     Enabled BIT NOT NULL default 1
 );
 ```
-## Deductions lookup.
+## Deductions.
 
 <details>
 <summary>These are permissible deductions according to the Finance Act, 2015:</summary>
@@ -147,6 +147,7 @@ Income tax is also paid by tax deduction at source (TDS): [^4]
 |194LC	| Interest paid by Indian company or business trust on money borrowed in foreign currency under a loan agreement or long-term bonds |	– |	5% |
 |195	| Interest or other amounts paid to non-residents or a foreign company (except under §115O) |	As computed by assessing officer on application under §195(2) or 195(3) |	Avoiding double taxation |
 
+## Deductions lookup.
 
 | Column Name | Data Type | Description | required |
 | ----------- | --------- | ----------- | -------- |
