@@ -465,14 +465,19 @@ This is just a basic formula to calculate salary. This formula does not take int
 \text{Basic Pay} = \text{Pay Rate} \times \text{Hours Worked}
 ```
 
-## deductions calculation
-This is just a basic formula to calculate deductions. This formula does not take into account the earnings. This formula is just for reference. The actual formula will be different.
-
+## Basic salary calculation for hourly rate with overtime calculation
+This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
 
 ```math
-\text{Deduction} = \text{Basic Pay} \times \text{Deduction Rate}
+\text{Basic Pay} = \text{Pay Rate} \times \text{Hours Worked} + \text{OT Rate} \times \text{OT Hours Worked}
 ```
 
+## Salary deduction with income tax calculation
+This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
+
+```math
+\text{Deduction} = \text{Income Tax} + \text{Professional Tax} + \text{Provident Fund} + \text{Employee State Insurance} + \text{Other Deductions}
+```
 
 [^1]: My reference [Writing Efficient Payroll Calculation Formulas](https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#I_efficpay) and [What is payroll software](https://www.oracle.com/in/human-capital-management/payroll/what-is-payroll-software/)
 
