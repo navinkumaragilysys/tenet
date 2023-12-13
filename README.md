@@ -459,14 +459,14 @@ classDiagram
 ```
 
 ## Basic payroll calculation
-    This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
+This is just a basic formula to calculate salary. This formula does not take into account the deductions and earnings. This formula is just for reference. The actual formula will be different.
 
 ```math
 \text{Basic Pay} = \text{Pay Rate} \times \text{Hours Worked}
 ```
 
 ## deductions calculation
-    This is just a basic formula to calculate deductions. This formula does not take into account the earnings. This formula is just for reference. The actual formula will be different.
+This is just a basic formula to calculate deductions. This formula does not take into account the earnings. This formula is just for reference. The actual formula will be different.
 
 
 ```math
