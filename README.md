@@ -1,6 +1,6 @@
 # Payroll System
 ## Description
-This project is a payroll[^1] system that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
+This project is a payroll[^1] [^2]  system[^3] that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
 
 ## Table of Contents
 * [Tables](#tables)
@@ -458,4 +458,8 @@ classDiagram
     }
 ```
 
-[^1]: My reference (https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#zzbegin).
+[^1]: My reference [Writing Efficient Payroll Calculation Formulas](https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#I_efficpay) and [What is payroll software](https://www.oracle.com/in/human-capital-management/payroll/what-is-payroll-software/)
+
+[^2]: [Payroll for India](https://www.oracle.com/in/a/ocom/docs/applications/hcm/oracle-payroll-for-india.pdf)
+
+[^3]: [Payroll](https://www.oracle.com/in/human-capital-management/payroll/#india)
