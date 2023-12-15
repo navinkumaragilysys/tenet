@@ -2,14 +2,6 @@
 ## Description
 This project is a payroll[^1] [^2]  system[^3] that allows the user to enter employee information and calculate their weekly/Monthly/Yearly pay. The user can also view a list of all employees and their information.
 
-> [!WARNING]
-> Advisory: Information relates to the law prevailing in the year of publication/ as indicated . Viewers are advised to ascertain the correct position/prevailing law before relying upon any document.​
-​​
-
-> [!CAUTION]
-> Disclaimer:The above calculator is only to enable public to have a quick and an easy access to basic tax calculation and does not purport to give correct tax calculation in all circumstances. It is advised that for filing of returns the exact calculation may be made as per the provisions contained in the relevant Acts, Rules etc.
-
-
 ## Table of Contents
 * [Tables](#tables)
   * [Employee](#employee)
@@ -69,6 +61,16 @@ CREATE TABLE Employee (
     Joined DATE NOT NULL
 );
 ```
+
+### Sample data
+
+| ID | FirstName | MiddleName | LastName | Address | City | State | Zip | Phone | Email | GovernmentID | IdVerified | Joined |
+| -- | --------- | ---------- | -------- | ------- | ---- | ----- | --- | ----- | ----- | ------------ | ---------- | ------ |
+| 1 | John | | Doe | 123 Main St | Anytown | CA | 12345 | 123-456-7890 | xyz@xyz.com | 123-45-6789 | 1 | 2020-01-01 |
+| 2 | Jane | | brown | 123 Main St | Anytown | CA | 12345 | 123-456-7890 |Xyz@xyz1.com | 123-45-6789 | 1 | 2020-01-01 |
+| 3 | John | | dodge | 123 Main St | Anytown | CA | 12345 | 123-456-7890 | email@ema.com | 123-45-6789 | 1 | 2020-01-01 |
+
+
 ## Rates.
 Pay rate based on Paytype.
 
@@ -91,7 +93,20 @@ CREATE TABLE Rates (
     Enabled BIT NOT NULL default 1
 );
 ```
+
+### Sample data 
+Rate type as hourly= 1 /weekly = 2 /monthly = 3/yearly = 4/OT = 0. 
+
+| ID | RateType | PayRate | Enabled |
+| -- | -------- | ------- | ------- |
+| 1 | 1 | 100 | 1 |
+| 2 | 2 | 1000 | 1 |
+| 3 | 3 | 10000 | 1 |
+| 4 | 4 | 100000 | 1 |
+| 5 | 0 | 150 | 1 |
+
 ## Deductions.
+This table will have the list of deductions that are applicable. each entry in the table can be mapped to a employee
 
 <details>
 <summary>These are permissible deductions according to the Finance Act, 2015:</summary>
@@ -173,6 +188,10 @@ CREATE TABLE Deductions (
     Enabled BIT NOT NULL default 1
 );
 ```
+
+### Sample data
+
+
 ## Earnings lookup.
 
 This table will have the details about earnings that are applicable. each entry in the table can be mapped to a employee
@@ -545,6 +564,14 @@ The proposed Union Budget 2023-24 budget aims to establish the New Tax Regime as
 |6 |	25% | Not Applicable | ₹12.5 lakh - ₹15 lakh |
 |7 |	30% | ₹15 lakh and Above |₹15 lakh and Above |
 
+
+
+> [!WARNING]
+> Advisory: Information relates to the law prevailing in the year of publication/ as indicated . Viewers are advised to ascertain the correct position/prevailing law before relying upon any document.​
+​​
+
+> [!CAUTION]
+> Disclaimer:The above calculator is only to enable public to have a quick and an easy access to basic tax calculation and does not purport to give correct tax calculation in all circumstances. It is advised that for filing of returns the exact calculation may be made as per the provisions contained in the relevant Acts, Rules etc.
 
 [^1]: My reference [Writing Efficient Payroll Calculation Formulas](https://docs.oracle.com/cd/E18727-01/doc.121/e14567/T1774T1776.htm#I_efficpay) and [What is payroll software](https://www.oracle.com/in/human-capital-management/payroll/what-is-payroll-software/)
 
