@@ -5,6 +5,7 @@ This project is a payroll[^1] [^2]  system[^3] that allows the user to enter emp
 ## Table of Contents
 * [Tables](#tables)
   * [Employee](#employee)
+  * [Employee Roles/ Hierarchy](#employee-roles)
   * [Rates](#rates)
   * [Deductions lookup](#deductions-lookup)
   * [Earnings lookup](#earnings-lookup)
@@ -44,32 +45,35 @@ This project is a payroll[^1] [^2]  system[^3] that allows the user to enter emp
 
 ### Script
 
-```sql
-CREATE TABLE Employee (
-    ID SERIAL PRIMARY KEY,
-    FirstName VARCHAR(50) NOT NULL,
-    MiddleName VARCHAR(50),
-    LastName VARCHAR(50) NOT NULL,
-    Address VARCHAR(50) NOT NULL,
-    City VARCHAR(50) NOT NULL,
-    State VARCHAR(50) NOT NULL,
-    Zip VARCHAR(50) NOT NULL,
-    Phone VARCHAR(50) NOT NULL,
-    Email VARCHAR(50) NOT NULL,
-    GovernmentID VARCHAR(50) NOT NULL,
-    IdVerified BIT NOT NULL default 0,
-    Joined DATE NOT NULL
-);
-```
+
 
 ### Sample data
 
-| ID | FirstName | MiddleName | LastName | Address | City | State | Zip | Phone | Email | GovernmentID | IdVerified | Joined |
-| -- | --------- | ---------- | -------- | ------- | ---- | ----- | --- | ----- | ----- | ------------ | ---------- | ------ |
-| 1 | John | | Doe | 123 Main St | Anytown | CA | 12345 | 123-456-7890 | xyz@xyz.com | 123-45-6789 | 1 | 2020-01-01 |
-| 2 | Jane | | brown | 123 Main St | Anytown | CA | 12345 | 123-456-7890 |Xyz@xyz1.com | 123-45-6789 | 1 | 2020-01-01 |
-| 3 | John | | dodge | 123 Main St | Anytown | CA | 12345 | 123-456-7890 | email@ema.com | 123-45-6789 | 1 | 2020-01-01 |
+| ID | FirstName | MiddleName | LastName | Address | City | State | Zip | Phone | Email | GovernmentID | IdVerified | Joined | role |
+| -- | --------- | ---------- | -------- | ------- | ---- | ----- | --- | ----- | ----- | ------------ | ---------- | ------ | ---- |
+| 1 | John | | Doe | 123 Main St. | Anytown | CA | 12345 | 123-456-7890 |n@n.com | 123-45-6789 | 1 | 2019-01-01 | 1 |
+| 2 | Jane | | Doe | 124 Main St. | Anytown | CA | 12345 | 123-456-7891 |n@nn.com | 123-45-6788 | 1 | 2019-01-01 | 2 |
+| 3 | John | | Smith | 125 Main St. | Anytown | CA | 12345 | 123-456-7892 | b@bb.com | 123-45-6787 | 1 | 2019-01-01 | 3 |
+| 4 | Jane | | Smith | 126 Main St. | Anytown | CA | 12345 | 123-456-7893 |c@cc.com | 123-45-6786 | 0 | 2019-01-01 | 4 |
+| 5 | John | | Jones | 127 Main St. | Anytown | CA | 12345 | 123-456-7894 | d@dd.com | 123-45-6785 | 1 | 2019-01-01 | 5 |
 
+
+## Employee Roles/ Hierarchy
+This table will have the roles and Hierarchy of the employee. each entry in the table can be mapped to a employee
+
+| Column Name | Data Type | Description | required |
+| ----------- | --------- | ----------- | -------- |
+| ID | int | Primary key for the employee table | `yes` |
+| Code | varchar(50) | Code of the employee | `yes` |
+| Role | varchar(50) | Role of the employee | `yes` |
+| Hierarchy | int | Hierarchy of the employee | `yes` |
+| Enabled | bit | Whether or not the rate is enabled | `yes` |
+
+
+### Script
+```sql
+
+```
 
 ## Rates.
 Pay rate based on Paytype.
@@ -86,12 +90,7 @@ Pay rate based on Paytype.
 
 ### Script
 ```sql
-CREATE TABLE Rates (
-    ID SERIAL PRIMARY KEY,
-    RateType INT NOT NULL,
-    PayRate DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL default 1
-);
+
 ```
 
 ### Sample data 
@@ -181,12 +180,7 @@ Income tax is also paid by tax deduction at source (TDS): [^4]
 
 ### Script
 ```sql
-CREATE TABLE Deductions (
-    ID SERIAL PRIMARY KEY,
-    Description VARCHAR(50) NOT NULL,
-    Amount DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL default 1
-);
+
 ```
 
 ### Sample data
@@ -207,12 +201,7 @@ This table will have the details about earnings that are applicable. each entry 
 
 ### Script
 ```sql
-CREATE TABLE Earnings (
-    ID SERIAL PRIMARY KEY,
-    Description VARCHAR(50) NOT NULL,
-    Amount DECIMAL(18,2) NOT NULL,
-    Enabled BIT NOT NULL default 1
-);
+
 ```
 ## Leave lookup.
 Leave details of the employee.
@@ -237,13 +226,7 @@ Loss Of Pay Leave (LOP/LWP)*
 
 ### Script
 ```sql
-CREATE TABLE Leave (
-    ID SERIAL PRIMARY KEY,
-    Description VARCHAR(50) NOT NULL,
-    Earned DECIMAL(5,2) NOT NULL,
-    Used DECIMAL(5,2) NOT NULL,
-    Enabled BIT NOT NULL default 1
-);
+
 ```
 ## Payroll
 This table will have the link between employee and rates, deductions, earnings and leave. each entry in the table is either a rate, deduction, earning or leave for an employee.
@@ -260,12 +243,7 @@ This table will have the link between employee and rates, deductions, earnings a
 
 ### Script
 ```sql
-CREATE TABLE Payroll (
-    ID SERIAL PRIMARY KEY,
-    EmployeeID INT NOT NULL,
-    Salary INT NOT NULL,
-    Enabled BIT NOT NULL default 1
-);
+
 ```
 
 ## Payment
@@ -289,17 +267,7 @@ This table will have the details about the payment made to the employee. each en
 
 ### Script
 ```sql
-CREATE TABLE Payment (
-    ID SERIAL PRIMARY KEY,
-    EmployeeID INT NOT NULL,
-    PaymentDate DATE NOT NULL,
-    PaymentAmount DECIMAL(18,2) NOT NULL,
-    PaymentType INT NOT NULL,
-    PaymentMode INT NOT NULL,
-    PaymentReference VARCHAR(50) NOT NULL,
-    PaymentStatus INT NOT NULL,
-    PaymentRemarks VARCHAR(50) NOT NULL
-);
+
 ```
 
 ## Bank Details
@@ -329,22 +297,7 @@ This table will have the details about the bank account of the employee. each en
 
 ### Script
 ```sql
-CREATE TABLE BankDetails (
-    ID SERIAL PRIMARY KEY,
-    EmployeeID INT NOT NULL,
-    BankName VARCHAR(50) NOT NULL,
-    BankBranch VARCHAR(50) NOT NULL,
-    BankCode VARCHAR(50) NOT NULL,
-    BankAccountNumber VARCHAR(50) NOT NULL,
-    BankAccountType INT NOT NULL,
-    BankAccountHolderName VARCHAR(50) NOT NULL,
-    BankAccountHolderAddress VARCHAR(50) NOT NULL,
-    BankAccountHolderCity VARCHAR(50) NOT NULL,
-    BankAccountHolderState VARCHAR(50) NOT NULL,
-    BankAccountHolderZip VARCHAR(50) NOT NULL,
-    BankAccountHolderPhone VARCHAR(50) NOT NULL,
-    BankAccountHolderEmail VARCHAR(50) NOT NULL
-);
+
 ```
 
 ## Chart
