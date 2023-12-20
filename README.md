@@ -44,7 +44,7 @@ This project is a payroll[^1] [^2]  system[^3] that allows the user to enter emp
 | Joined | date | Date the employee joined the company | `yes` |
 
 ### Script
-
+[script](./script.sql)
 
 
 ### Sample data
@@ -58,7 +58,7 @@ This project is a payroll[^1] [^2]  system[^3] that allows the user to enter emp
 | 5 | John | | Jones | 127 Main St. | Anytown | CA | 12345 | 123-456-7894 | d@dd.com | 123-45-6785 | 1 | 2019-01-01 | 5 |
 
 
-## Employee Roles/ Hierarchy
+## Employee Roles
 This table will have the roles and Hierarchy of the employee. each entry in the table can be mapped to a employee
 
 | Column Name | Data Type | Description | required |
@@ -71,9 +71,8 @@ This table will have the roles and Hierarchy of the employee. each entry in the 
 
 
 ### Script
-```sql
 
-```
+[script](./script.sql)
 
 ## Rates.
 Pay rate based on Paytype.
@@ -89,9 +88,7 @@ Pay rate based on Paytype.
 | Enabled | bit | Whether or not the rate is enabled | `yes` |
 
 ### Script
-```sql
-
-```
+[script](./script.sql)
 
 ### Sample data 
 Rate type as hourly= 1 /weekly = 2 /monthly = 3/yearly = 4/OT = 0. 
@@ -179,9 +176,7 @@ Income tax is also paid by tax deduction at source (TDS): [^4]
 | Enabled | bit | Whether or not the rate is enabled | `yes` |
 
 ### Script
-```sql
-
-```
+[script](./script.sql)
 
 ### Sample data
 
@@ -200,9 +195,8 @@ This table will have the details about earnings that are applicable. each entry 
 | Enabled | bit | Whether or not the rate is enabled | `yes` |
 
 ### Script
-```sql
+[script](./script.sql)
 
-```
 ## Leave lookup.
 Leave details of the employee.
 > [!NOTE]
@@ -225,9 +219,9 @@ Loss Of Pay Leave (LOP/LWP)*
 | Enabled | bit | Whether or not the rate is enabled | `yes` |
 
 ### Script
-```sql
+[script](./script.sql)
 
-```
+
 ## Payroll
 This table will have the link between employee and rates, deductions, earnings and leave. each entry in the table is either a rate, deduction, earning or leave for an employee.
 
@@ -242,9 +236,7 @@ This table will have the link between employee and rates, deductions, earnings a
 | Enabled | bit | Whether or not the rate is enabled | `yes` |
 
 ### Script
-```sql
-
-```
+[script](./script.sql)
 
 ## Payment
 This table will have the details about the payment made to the employee. each entry in the table is a payment made to an employee.
@@ -266,9 +258,7 @@ This table will have the details about the payment made to the employee. each en
 | PaymentRemarks | varchar(50) | Remarks of the payment | `yes` |
 
 ### Script
-```sql
-
-```
+[script](./script.sql)
 
 ## Bank Details
 This table will have the details about the bank account of the employee. each entry in the table is a bank account of an employee.
@@ -296,9 +286,7 @@ This table will have the details about the bank account of the employee. each en
 
 
 ### Script
-```sql
-
-```
+[script](./script.sql)
 
 ## Chart
 
