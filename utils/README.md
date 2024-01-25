@@ -1,3 +1,27 @@
+# Docker Compose Utilities
+
+execute the sccript with the following command:
+
+```bash
+:~/utils/pets$ bash pets.sh
+
+usage:
+  pets.sh -h|--help
+  pets.sh [options] action...
+options:
+  --itest       just services needed for stay ITESTs
+  --names       specific service names (multiple names in quotes like "mongo redis")
+actions:
+  start         docker compose start
+  stop          docker compose stop
+  repave        stop, clean, start, provision
+  restart       stop, start
+  provision     create users, vhosts, db, ...
+  clean         remove docker images and volumes
+  dangling      show dangling volumes
+
+```
+
 Sure, here's a detailed breakdown of the script `pets.sh`:
 
 1. `#!/bin/bash`: This is called a shebang. It tells the system that this script should be executed using the Bash shell.
