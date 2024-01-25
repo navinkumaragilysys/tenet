@@ -3,7 +3,7 @@ USE payroll;
 
 -- https://gist.githubusercontent.com/robcowie/1539835/raw/ca2773a8a43fd9f001dc61ece20f46eddea11114/alphanumeric_code.pgsql
 -- Generate a random alphanumeric code of length 7
-CREATE OR REPLACE FUNCTION AlphaNumericSerial() 
+CREATE OR REPLACE FUNCTION generate_random_seven_digit_code()
 RETURNS char(7) AS $$
 DECLARE _serial char(7); _i int; _chars char(36) = 'abcdefghijklmnopqrstuvwxyz0123456789';
 BEGIN
@@ -15,6 +15,26 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql VOLATILE;
 
+select UPPER(AlphaNumericSerial());
+
+-- 16 digit number generator
+CREATE OR REPLACE FUNCTION generate_random_16_digit_unique_id()
+RETURNS TEXT AS
+$$
+DECLARE
+result TEXT;
+BEGIN
+WITH RandomDigits AS (
+    SELECT ARRAY(SELECT generate_series(0, 9)) AS digits)
+SELECT 
+    string_agg(digit::text, '' ORDER BY random()) INTO result
+FROM unnest((SELECT digits FROM RandomDigits)) digit LIMIT 16;
+RETURN result;
+END;
+$$
+LANGUAGE plpgsql;
+
+select generate_random_16_digit_unique_id()
 
 -- Create a trigger on the table RollsLookup on delete to update the records
 
@@ -57,6 +77,7 @@ CREATE TABLE IF NOT EXISTS Employee (
     MiddleName VARCHAR(50),
     LastName VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL default UPPER(AlphaNumericSerial()),
+    unique_id VARCHAR(16) NOT NULL default generate_random_16_digit_unique_id(), 
     Address VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
     State VARCHAR(50) NOT NULL,
