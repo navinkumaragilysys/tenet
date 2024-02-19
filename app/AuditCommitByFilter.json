@@ -1,0 +1,782 @@
+{
+    "data": {
+        "auditCommitByFilter": {
+            "pageInfo": {
+                "cursor": "eyJ1IjoiMDA0NmYzMDItOGYwNC00YmU0LWI5OTgtYmQyNjE4MzkzMmUyIiwibyI6MTAwLCJ0Ijo0OTZ9",
+                "pageSize": 100,
+                "currentPage": 1,
+                "totalPages": 5,
+                "totalCount": 496
+            },
+            "nodes": [
+                {
+                    "id": "65d2f6ae58efa5600a7b6c02",
+                    "timeStamp": "2024-02-19T06:35:26.880Z",
+                    "entityType": "reservation",
+                    "user": "super",
+                    "label": null,
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "folios/:1/default",
+                            "source": "account",
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/name",
+                            "source": "account",
+                            "to": "Folio+1",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/paymentMethod",
+                            "source": "account",
+                            "to": "294f0b28-581e-470d-a8f7-89beaa706297:paymentMethod:CASH",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/status",
+                            "source": "account",
+                            "to": "open",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "paymentSettings/:1/default",
+                            "source": "account",
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "paymentSettings/:1/method",
+                            "source": "account",
+                            "to": "294f0b28-581e-470d-a8f7-89beaa706297:paymentMethod:CASH",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d32cd958efa5600a85ead4",
+                    "timeStamp": "2024-02-19T10:26:33.289Z",
+                    "entityType": "reservation",
+                    "user": "super",
+                    "label": "NFKHXYCBG",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "folios/:1/default",
+                            "source": "account",
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/name",
+                            "source": "account",
+                            "to": "Folio+1",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/paymentMethod",
+                            "source": "account",
+                            "to": "294f0b28-581e-470d-a8f7-89beaa706297:paymentMethod:CASH",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "folios/:1/status",
+                            "source": "account",
+                            "to": "open",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "paymentSettings/:1/default",
+                            "source": "account",
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "paymentSettings/:1/method",
+                            "source": "account",
+                            "to": "294f0b28-581e-470d-a8f7-89beaa706297:paymentMethod:CASH",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "roomDetails/::2023-09-10+-+2023-09-12/roomType",
+                            "source": "allocation",
+                            "to": "ebee3ca7-91e0-4597-8b1b-f492dcaf0772:roomType:NQQX",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "arrivalDate",
+                            "source": null,
+                            "to": "2023-09-10",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "cancellationPolicy/appliedPolicy",
+                            "source": null,
+                            "to": "272602e7-6141-4489-b556-e72c189450ec:cancellationPolicy:CXL",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "confirmationCode",
+                            "source": null,
+                            "to": "NFKHXYCBG",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "departureDate",
+                            "source": null,
+                            "to": "2023-09-12",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "earlyDeparturePolicyInfo/addedCredit",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "earlyDeparturePolicyInfo/minLos",
+                            "source": null,
+                            "to": "0",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "housekeepingPattern",
+                            "source": null,
+                            "to": "DEFAULT",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "interfaceSettings/billingRestriction",
+                            "source": null,
+                            "to": "AllRestricted",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "interfaceSettings/gameRestriction",
+                            "source": null,
+                            "to": "AllRestricted",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "interfaceSettings/movieRestriction",
+                            "source": null,
+                            "to": "AllRestricted",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "interfaceSettings/telephoneRestriction",
+                            "source": null,
+                            "to": "AllAllowed",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "occupancy/numberOfAdults",
+                            "source": null,
+                            "to": "2",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "occupancy/profileAssociatedWith",
+                            "source": null,
+                            "to": "ADULTS",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "primaryGuest/ageCategory",
+                            "source": null,
+                            "to": "adult",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "primaryGuest/name",
+                            "source": null,
+                            "to": "655f1d6e9c7cff4b2a6b23a0:guest:Chitrarasan%2BJo",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-10/adultsIncluded",
+                            "source": null,
+                            "to": "4",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-10/childrenIncluded",
+                            "source": null,
+                            "to": "4",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-10/preOccupancyRate",
+                            "source": null,
+                            "to": "100.00",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-10/ratePlan",
+                            "source": null,
+                            "to": "08c5693d-4e4d-4c0a-98c6-0c16642bb164:ratePlan:RACK",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-11/adultsIncluded",
+                            "source": null,
+                            "to": "4",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-11/childrenIncluded",
+                            "source": null,
+                            "to": "4",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-11/preOccupancyRate",
+                            "source": null,
+                            "to": "100.00",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "rates/::2023-09-11/ratePlan",
+                            "source": null,
+                            "to": "08c5693d-4e4d-4c0a-98c6-0c16642bb164:ratePlan:RACK",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "status",
+                            "source": null,
+                            "to": "RES",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d32d3258efa5600a8605ef",
+                    "timeStamp": "2024-02-19T10:28:02.671Z",
+                    "entityType": "reservation",
+                    "user": "ASEM",
+                    "label": "NFKHXYCBG",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "cancellationFee/::12PM",
+                            "source": null,
+                            "to": "0.00",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "cancellationFee/::CXL",
+                            "source": null,
+                            "to": "100.00",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "cancellationFee/::ESCXL",
+                            "source": null,
+                            "to": "0.00",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "cancellationFee/::GNS",
+                            "source": null,
+                            "to": "100.00",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d3307a58efa5600a86b22e",
+                    "timeStamp": "2024-02-19T10:42:02.520Z",
+                    "entityType": "reservation",
+                    "user": "super",
+                    "label": "NFKHXYCBG",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "roomDetails/::2023-09-10+-+2023-09-12/room",
+                            "source": "allocation",
+                            "to": "64d32b36a84687649fec5cac:room:SR-206",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2f92a58efa5600a7be57d",
+                    "timeStamp": "2024-02-19T06:46:02.360Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "name",
+                            "source": null,
+                            "to": "TRAVEL+AGENCY+NAME",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "pronounced",
+                            "source": null,
+                            "to": "PRONOUNCED",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "website",
+                            "source": null,
+                            "to": "WEBSITE",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2f93958efa5600a7be7ae",
+                    "timeStamp": "2024-02-19T06:46:17.318Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": "TRAVEL+AGENCY+NAME",
+                            "path": "name",
+                            "source": null,
+                            "to": "TRAVEL+AGENCY+NAME+11",
+                            "operation": "UPDATE"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2f99758efa5600a7bf4c1",
+                    "timeStamp": "2024-02-19T06:47:51.144Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": "WEBSITE",
+                            "path": "website",
+                            "source": null,
+                            "to": null,
+                            "operation": "REMOVE"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fbda58efa5600a7c6528",
+                    "timeStamp": "2024-02-19T06:57:30.641Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "addresses/:1/city",
+                            "source": null,
+                            "to": "Erode",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/country",
+                            "source": null,
+                            "to": "India",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/county",
+                            "source": null,
+                            "to": "TamilNadu",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/line1",
+                            "source": null,
+                            "to": "STREET+1",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/postalCode",
+                            "source": null,
+                            "to": "638502",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/stateProvince",
+                            "source": null,
+                            "to": "TamilNadu",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/type",
+                            "source": null,
+                            "to": "Office",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fbda58efa5600a7c6550",
+                    "timeStamp": "2024-02-19T06:57:30.943Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "emails/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "emails/:1/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "emails/:1/emailAddress",
+                            "source": null,
+                            "to": "172+Kuppandampalayam%2C+Pallikudathottam",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fc1258efa5600a7c7145",
+                    "timeStamp": "2024-02-19T06:58:26.330Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": "638502",
+                            "path": "addresses/:1/postalCode",
+                            "source": null,
+                            "to": null,
+                            "operation": "REMOVE"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fc2158efa5600a7c73f7",
+                    "timeStamp": "2024-02-19T06:58:41.009Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": "Erode",
+                            "path": "addresses/:1/city",
+                            "source": null,
+                            "to": "Chennai",
+                            "operation": "UPDATE"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/postalCode",
+                            "source": null,
+                            "to": "600041",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fc2158efa5600a7c741f",
+                    "timeStamp": "2024-02-19T06:58:41.339Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": "172+Kuppandampalayam%2C+Pallikudathottam",
+                            "path": "emails/:1/emailAddress",
+                            "source": null,
+                            "to": "Kottivakkam",
+                            "operation": "UPDATE"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d2fc3b58efa5600a7c79fb",
+                    "timeStamp": "2024-02-19T06:59:07.439Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "addresses/:1/line2",
+                            "source": null,
+                            "to": "Kottivakkam",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/line3",
+                            "source": null,
+                            "to": "Anthiyur+Athani",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/line4",
+                            "source": null,
+                            "to": "adfgsadfgsdfg",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d30c9658efa5600a7f8c76",
+                    "timeStamp": "2024-02-19T08:08:54.649Z",
+                    "entityType": "agent",
+                    "user": "super",
+                    "label": "TRAVEL+AGENCY+NAME+11",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "phones/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/number",
+                            "source": null,
+                            "to": "9658213",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/type",
+                            "source": null,
+                            "to": "Business",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:2/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:2/number",
+                            "source": null,
+                            "to": "616513516851",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:2/type",
+                            "source": null,
+                            "to": "Home",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:2/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d32cdd58efa5600a85edd9",
+                    "timeStamp": "2024-02-19T10:26:37.327Z",
+                    "entityType": "guest",
+                    "user": "super",
+                    "label": "one+group+reservation",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "Profile+Status",
+                            "source": null,
+                            "to": "Active",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "one",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "group+reservation",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/number",
+                            "source": null,
+                            "to": "asdf",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65d32d0058efa5600a85f82b",
+                    "timeStamp": "2024-02-19T10:27:12.620Z",
+                    "entityType": "guest",
+                    "user": "super",
+                    "label": "one+group+reservation",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "Profile+Status",
+                            "source": null,
+                            "to": "Active",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "one",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "group+reservation",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/defaultForAR",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/number",
+                            "source": null,
+                            "to": "asdf",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

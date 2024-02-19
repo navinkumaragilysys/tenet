@@ -1,0 +1,582 @@
+{
+    "data": {
+        "auditCommitByFilter": {
+            "pageInfo": {
+                "cursor": "eyJ1IjoiMDA0NmYzMDItOGYwNC00YmU0LWI5OTgtYmQyNjE4MzkzMmUyIiwibyI6MTAwLCJ0Ijo0OTZ9",
+                "pageSize": 100,
+                "currentPage": 1,
+                "totalPages": 5,
+                "totalCount": 496
+            },
+            "nodes": [
+                {
+                    "id": "65b8c218684aa9167b88701f",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "transactionItem",
+                    "user": "super",
+                    "label": "ALLOWANCE",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "addToThirdPartyRoutingRule",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "allowComp",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "category",
+                            "source": null,
+                            "to": "b8d4a856-e2a8-4f4b-b6a0-56d08f46c295:transactionCategory:ROOMS",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "code",
+                            "source": null,
+                            "to": "ALLOWANCE",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "defaultPrice",
+                            "source": null,
+                            "to": "0",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "internal",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "name",
+                            "source": null,
+                            "to": "ALLOWANCE",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "nonBeddedRoomRevenue",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "restricted",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "status",
+                            "source": null,
+                            "to": "ACTIVE",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "subcategory",
+                            "source": null,
+                            "to": "e058df42-d1e8-40de-8369-d14d7e8ad473:transactionSubcategory:TXFR",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65b8c218684aa9167b88701d",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "transactionItem",
+                    "user": "super",
+                    "label": "CNCL",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "order",
+                            "source": null,
+                            "to": "2",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65b8c218684aa9167b88701c",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "depositPolicy",
+                    "user": "super",
+                    "label": "gxl5uf",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "active",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addAutoRecurringCharge",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "chargeType",
+                            "source": null,
+                            "to": "FIXED_FEE",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "code",
+                            "source": null,
+                            "to": "gxl5uf",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "description",
+                            "source": null,
+                            "to": "Flat+fee+of+%2420",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "fixedFee",
+                            "source": null,
+                            "to": "20",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "name",
+                            "source": null,
+                            "to": "Standard+Deposit+-+20",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "policyType",
+                            "source": null,
+                            "to": "NORMAL",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "65b8c218684aa9167b88701e",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "transactionItem",
+                    "user": "super",
+                    "label": "RMCRG",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "order",
+                            "source": null,
+                            "to": "1",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "63da776ed105bdc3699a1616",
+                    "timeStamp": "2024-01-10T11:00:00.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Aaron+Peloquina",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Aaron",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquina",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/number",
+                            "source": null,
+                            "to": "4255551000",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "6404aa78c24e6659bc0b0af8",
+                    "timeStamp": "2024-01-10T12:00:00.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Aaron+Peloquin",
+                    "changes": [
+                        {
+                            "from": "Peloquina",
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "UPDATE"
+                        }
+                    ]
+                },
+                {
+                    "id": "6404c590c24e1759bc5c6e04",
+                    "timeStamp": "2024-01-10T13:00:00.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Aaron+Peloquin",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Aaron",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "singleUse",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "6404e591c24e2459bc5c71e4",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Maggie+Peloquin",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Maggie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "singleUse",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "6403e5b7c24e7759bc5d49bc",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Maggie+Peloquin",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Maggie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "singleUse",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "6414e5ddc24e7759bc5e26d0",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Maggie+Peloquin",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Maggie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "singleUse",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "5404e649c24e7759bc608de3",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Maggie+Peloquin",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Maggie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Peloquin",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "singleUse",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "949e16be5cbf6070a035f08f",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Jamie+Lamb",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "Profile+Status",
+                            "source": null,
+                            "to": "Active",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "emails/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "emails/:1/emailAddress",
+                            "source": null,
+                            "to": "Jamie.Lamb%40mailinator.com",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Jamie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Lamb",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "649e170a5cbf6010a035f896",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Earl+Duffield",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "Profile+Status",
+                            "source": null,
+                            "to": "Active",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/city",
+                            "source": null,
+                            "to": "Bellevue",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/country",
+                            "source": null,
+                            "to": "United+States",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/line1",
+                            "source": null,
+                            "to": "41144+Poplar+Dr",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/postalCode",
+                            "source": null,
+                            "to": "93691",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/stateProvince",
+                            "source": null,
+                            "to": "WA",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "addresses/:1/type",
+                            "source": null,
+                            "to": "Home",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Earl",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Duffield",
+                            "operation": "ADD"
+                        }
+                    ]
+                },
+                {
+                    "id": "649e28bd5baf6070a0377010",
+                    "timeStamp": "2024-01-20T12:51:47.114Z",
+                    "entityType": "houseAccount",
+                    "user": "super",
+                    "label": "Angie+Hooper",
+                    "changes": [
+                        {
+                            "from": null,
+                            "path": "Profile+Status",
+                            "source": null,
+                            "to": "Active",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "firstName",
+                            "source": null,
+                            "to": "Angie",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "lastName",
+                            "source": null,
+                            "to": "Hooper",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/default",
+                            "source": null,
+                            "to": "true",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/number",
+                            "source": null,
+                            "to": "507-448-6859",
+                            "operation": "ADD"
+                        },
+                        {
+                            "from": null,
+                            "path": "phones/:1/useForSmsNotifications",
+                            "source": null,
+                            "to": "false",
+                            "operation": "ADD"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
