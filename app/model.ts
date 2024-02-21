@@ -1,47 +1,59 @@
 export type GraphResponse = {
     data: Data
 }
+
 export type Data = {
     auditCommitByFilter: AuditCommitByFilter
 }
+
 export type AuditCommitByFilter = {
     pageInfo: PageInfo
     nodes: Node[]
 }
+
 export type PageInfo = {
-    cursor?: string
+    cursor: string
     pageSize: number
     currentPage: number
     totalPages: number
     totalCount: number
 }
+
 export type Node = {
+    type: string
     id: string
-    timeStamp: string
-    entityType: string
-    user: string
     label: string
+    user: string
+    timestamp: string
+    transaction: string
     changes: Change[]
 }
+
 export type Change = {
-    from?: string
-    path: string
-    source: string
-    to: string
-    operation: string
+    path: Path[]
+    type: string
+    to?: To[]
+    collection: boolean
+    from?: From[]
 }
 
-
-export type Changes = {
-    from?: string
-    path: string
-    source: string
-    to: string
-    operation: string
+export type Path = {
+    value: string
+    type: string
 }
 
-export type ChangesArray = {
-    changes: string[];
+export type To = {
+    value: string
+    references?: References
+}
+
+export type References = {
+    type: string
+    id: string
+}
+
+export type From = {
+    value: string
 }
 
 export type Logs = {
