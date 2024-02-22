@@ -4,44 +4,53 @@ import { Change, GraphResponse, Logs, Node } from './model.js';
 const filePath = './AuditCommitByFilter.json';
 
 
-function generateChangeLogs(changes: Change[]): string[] {
+function generateChangeLogs(changes: Change[], node: Node): string[] {
     const combinedChanges: string[] = [];
     let previousPath = '';
+    let sameLine = false;
     let log = '';
     for (const change of changes) {
-        const pathValues = change.path.map((path) => toCamelCase(path.value)).join(' ');
-        const fromToValue = change.to && change.from
-            ? `from ${change.to.map((to) => to.value).join(' ')} to ${change.from.map((from) => from.value).join(' ')}`
-            : change.to
-                ? change.to.map((to) => to.value).join(' ')
-                : change.from
-                    ? change.from.map((from) => from.value).join(' ')
-                    : '';
-
-        const currentPath = change.path.slice(0, 2).map(path => path.value).join('_');
-        const typeValues = change.path.map((path) => path.type).join(' ');
-
-        if (String.prototype.toLowerCase.call(currentPath) === String.prototype.toLowerCase.call(previousPath)) {
-            console.log(`   ${fromToValue}`);
-            continue;
+        let currentPath = change.path.slice(0, 2).map((path) => path.value).join('_');
+        const currentPathvalue = change.path.map((path) => toCamelCase(path.value)).join(' ');
+        if (currentPath.toLocaleLowerCase() === previousPath.toLocaleLowerCase()) {
+            sameLine = true;
         }
-
-        previousPath = currentPath;
-        console.log(`${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`);
-        switch (change.type) {
-            case 'ADD':
-                log = `${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`;
-                break;
-            case 'UPDATE':
-                log = `${pathValues} ${getOperationDescription(change.type)} ${fromToValue}`;
-                break;
-            case 'REMOVE':
-                log = `${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`;
-                break;
+        else {
+            previousPath = currentPath;
+            sameLine = false;
         }
-
+        log = getLogs(change, sameLine, log, currentPathvalue);
+        if (!sameLine) {
+            combinedChanges.push(log);
+        }
     };
     return combinedChanges;
+}
+
+function getLogs(change: Change, sameLine: boolean, log: string, currentPathvalue: string) {
+    let extralog = log;
+    switch (change.type) {
+        case 'ADD':
+            if (sameLine) {
+                extralog = `${log}  ${change.to.map((to) => to.value).join(',')}`;
+            }
+            else {
+                extralog = `${getOperationDescription(change.type)} ${currentPathvalue} ${change.to.map((to) => to.value).join(',')}`;
+            }
+            break;
+        case 'UPDATE':
+            extralog = `${currentPathvalue} ${getOperationDescription(change.type)} from ${change.from.map((from) => from.value).join(',')} to ${change.to.map((to) => to.value).join(',')}`;
+            break;
+        case 'REMOVE':
+            if (sameLine) {
+                extralog = `${log}  ${change.from.map((from) => from.value).join(',')}`;
+            }
+            else {
+                extralog = `${getOperationDescription(change.type)} ${currentPathvalue} ${change.from.map((from) => from.value).join(',')}`;
+            }
+            break;
+    }
+    return extralog;
 }
 
 function extractNumericValue(input: string): number {
@@ -84,12 +93,12 @@ function processLogNode(node: Node): Logs {
         label: toCamelCase(node.label ? node.label : ''),
         changeCount: node.changes?.length || node.events?.length || 0,
         user: node.user,
-        logs: node.changes && node.changes.length > 0 ? generateChangeLogs(node.changes) : []
+        logs: node.changes && node.changes.length > 0 ? generateChangeLogs(node.changes, node) : []
     };
 }
 
 function printLogs(logs: Logs[]): void {
-    //console.log(JSON.stringify(logs, null, 2));
+    console.log(JSON.stringify(logs, null, 2));
 }
 
 fs.readFile(filePath, 'utf8', (err, data) => {
@@ -100,6 +109,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 
     try {
         const jsonData: GraphResponse = JSON.parse(data);
+        jsonData.data.auditCommitByFilter.nodes.map
         const logs: Logs[] = jsonData.data.auditCommitByFilter.nodes.map(processLogNode);
         printLogs(logs);
     } catch (err) {

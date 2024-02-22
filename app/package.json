@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.19",
+    "tsc-watch": "^6.0.4",
     "typescript": "^5.3.3"
   },
   "dependencies": {
