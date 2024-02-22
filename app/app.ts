@@ -6,39 +6,37 @@ const filePath = './AuditCommitByFilter.json';
 
 function generateChangeLogs(changes: Change[]): string[] {
     const combinedChanges: string[] = [];
-    let previousPath = "";
-    let isSamePath = false;
-    let logs = "";
+    let previousPath = '';
+    let log = '';
     for (const change of changes) {
+        const pathValues = change.path.map((path) => toCamelCase(path.value)).join(' ');
+        const fromToValue = change.to && change.from
+            ? `from ${change.to.map((to) => to.value).join(' ')} to ${change.from.map((from) => from.value).join(' ')}`
+            : change.to
+                ? change.to.map((to) => to.value).join(' ')
+                : change.from
+                    ? change.from.map((from) => from.value).join(' ')
+                    : '';
 
-        let pathValues = change.path.map((path) => toCamelCase(path.value)).join(' ');
-        const currentPath = change.path[0].value;
+        const currentPath = change.path.slice(0, 2).map(path => path.value).join('_');
+        const typeValues = change.path.map((path) => path.type).join(' ');
 
-        if (previousPath.trim().toLowerCase() === currentPath.trim().toLowerCase()) {
-            console.log(`previousPath: ${previousPath} currentPath: ${currentPath}`);
-            pathValues = change.path.slice(1).map((path) => toCamelCase(path.value)).join(', ');
-
-            isSamePath = true;
-        } else {
-            combinedChanges.push(logs.trim());
-            logs = "";
-            isSamePath = false;
-            previousPath = currentPath;
+        if (String.prototype.toLowerCase.call(currentPath) === String.prototype.toLowerCase.call(previousPath)) {
+            console.log(`   ${fromToValue}`);
+            continue;
         }
+
+        previousPath = currentPath;
+        console.log(`${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`);
         switch (change.type) {
             case 'ADD':
-                if (isSamePath) {
-                    logs = change.to ? `${logs} ${pathValues} - ${change.to[0].value},` : ` ${logs} ${pathValues}`;
-                    console.log('logs', logs);
-                }
-                else
-                    logs = change.to ? `Added ${pathValues} - ${change.to[0].value}, ` : `Added ${pathValues}`;
+                log = `${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`;
                 break;
             case 'UPDATE':
-                logs = change.from && change.to ? `${pathValues} changed from ${change.from[0].value} to ${change.to[0].value}` : `${pathValues} changed`;
+                log = `${pathValues} ${getOperationDescription(change.type)} ${fromToValue}`;
                 break;
             case 'REMOVE':
-                logs = `Removed ${pathValues}`;
+                log = `${getOperationDescription(change.type)} ${pathValues} ${fromToValue}`;
                 break;
         }
 
@@ -60,8 +58,8 @@ function toCamelCase(entityType: string): string {
     if (entityType === entityType.toUpperCase()) {
         return entityType;
     }
-    entityType = entityType.replace(/[A-Z]/g, " $&");
-    return entityType[0].toUpperCase() + entityType.slice(1);
+    const replacedEntityType = entityType.replace(/[A-Z]/g, " $&");
+    return replacedEntityType[0].toUpperCase() + replacedEntityType.slice(1);
 }
 
 function getOperationDescription(operation: string): string {
@@ -84,14 +82,14 @@ function processLogNode(node: Node): Logs {
     return {
         entityName: toCamelCase(node.type),
         label: toCamelCase(node.label ? node.label : ''),
-        changeCount: node.changes.length,
+        changeCount: node.changes?.length || node.events?.length || 0,
         user: node.user,
-        logs: generateChangeLogs(node.changes)
+        logs: node.changes && node.changes.length > 0 ? generateChangeLogs(node.changes) : []
     };
 }
 
 function printLogs(logs: Logs[]): void {
-    console.log(JSON.stringify(logs, null, 2));
+    //console.log(JSON.stringify(logs, null, 2));
 }
 
 fs.readFile(filePath, 'utf8', (err, data) => {
