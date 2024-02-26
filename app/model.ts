@@ -99,7 +99,6 @@ export type Logs = {
 export interface ChangeGroup {
   pathvalue:string
   lineValue: string
-  path: Path[]
   type: string
   from: string
   to: string

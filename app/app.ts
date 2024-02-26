@@ -18,16 +18,13 @@ const filePath = "./AuditCommitByFilter.json";
  * Generates change logs based on the provided changes and node.
  *
  * @param changes - An array of changes.
- * @param node - The node to generate change logs for.
+ * @param events - An array of events.
  * @returns An array of change logs.
  */
-function generateChangeLogs(
-	changes: Change[],
-	events: Event[],
-	node: Node,
-): string[] {
+function generateChangeLogs(changes: Change[], events: Event[]): string[] {
 	const result = changes
 		.map((change) => {
+			// Transform the changes into groups
 			let pathValue = change.path
 				?.slice(0, change.path.length - 1)
 				.map((path) => path.value)
@@ -47,11 +44,11 @@ function generateChangeLogs(
 				lineValue: lineValue,
 				from: fromValue,
 				to: toValue,
-				path: change.path,
 			};
 			return changeGroup;
 		})
 		.sort((a, b) => {
+			// Sort the change groups based on the order in ADDRESSESLINEORDERCONSTANTS
 			const indexA = ADDRESSESLINEORDERCONSTANTS.map((v) =>
 				v.toLowerCase(),
 			).indexOf(a.lineValue.toLowerCase());
@@ -64,6 +61,7 @@ function generateChangeLogs(
 			return indexA - indexB; // both a and b are in the order array, sort them based on their positions
 		})
 		.reduce(
+			// Group the sorted change groups by pathvalue
 			(acc: Record<string, ChangeGroup[]>, change) => {
 				if (acc[change.pathvalue]) {
 					acc[change.pathvalue].push(change);
@@ -74,10 +72,14 @@ function generateChangeLogs(
 			},
 			{} as Record<string, ChangeGroup[]>,
 		);
-
 	return getLogs(result);
 }
 
+/**
+ *
+ * @param changes record of changes whic is sorted and grouped
+ * @returns changes in the form of string array
+ */
 function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 	let extralog = "";
 	const combinedChanges: string[] = [];
@@ -96,14 +98,18 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 				}
 			} else if (change.type === "UPDATE") {
 				if (extralog === "") {
-					extralog = `${toCamelCase(key)} ${toCamelCase(change.lineValue)} ${getOperationDescription(
-						change.type,
-					).toLowerCase()} from ${change.from} to ${change.to}`;
+					extralog = `${toCamelCase(key)} ${toCamelCase(
+						change.lineValue,
+					)} ${getOperationDescription(change.type).toLowerCase()} from ${
+						change.from
+					} to ${change.to}`;
 				} else {
 					combinedChanges.push(extralog.trim());
-					extralog = `${toCamelCase(key)} ${toCamelCase(change.lineValue)} ${getOperationDescription(
-						change.type,
-					).toLowerCase()} from ${change.from} to ${change.to}`;
+					extralog = `${toCamelCase(key)} ${toCamelCase(
+						change.lineValue,
+					)} ${getOperationDescription(change.type).toLowerCase()} from ${
+						change.from
+					} to ${change.to}`;
 				}
 			} else if (change.type === "REMOVE") {
 				if (extralog === "")
@@ -121,6 +127,11 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 	return combinedChanges;
 }
 
+/**
+ *
+ * @param entityType entity type to be converted to camel case
+ * @returns returns the entity type in camel case
+ */
 function toCamelCase(entityType: string): string {
 	if (entityType === entityType.toUpperCase()) {
 		return entityType;
@@ -173,7 +184,7 @@ function processLogNode(node: Node): Logs {
 		user: node.user,
 		logs:
 			node.changes && node.changes.length > 0
-				? generateChangeLogs(node.changes, node.events, node)
+				? generateChangeLogs(node.changes, node.events)
 				: [],
 	};
 }
