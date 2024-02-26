@@ -94,3 +94,13 @@ export type Logs = {
     user: string
     logs: string[]
 }
+
+
+export interface ChangeGroup {
+  pathvalue:string
+  lineValue: string
+  path: Path[]
+  type: string
+  from: string
+  to: string
+}
