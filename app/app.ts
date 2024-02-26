@@ -21,18 +21,17 @@ const filePath = "./AuditCommitByFilter.json";
  * @param node - The node to generate change logs for.
  * @returns An array of change logs.
  */
-function generateChangeLogs(changes: Change[], events: Event[]): string[] {
-	const combinedChanges: string[] = [];
-
+function generateChangeLogs(
+	changes: Change[],
+	events: Event[],
+	node: Node,
+): string[] {
 	const result = changes
-		.filter((change) => {
-			return change.type === "ADD" || change.type === "UPDATE";
-		})
 		.map((change) => {
 			let pathValue = change.path
 				?.slice(0, change.path.length - 1)
 				.map((path) => path.value)
-				.join("_");
+				.join(" ");
 			const lineValue = change.path
 				?.slice(change.path.length - 1, change.path.length)
 				.map((path) => path.value)
@@ -53,13 +52,15 @@ function generateChangeLogs(changes: Change[], events: Event[]): string[] {
 			return changeGroup;
 		})
 		.sort((a, b) => {
-			const indexA = ADDRESSESLINEORDERCONSTANTS.indexOf(a.pathvalue);
-			const indexB = ADDRESSESLINEORDERCONSTANTS.indexOf(b.pathvalue);
-
+			const indexA = ADDRESSESLINEORDERCONSTANTS.map((v) =>
+				v.toLowerCase(),
+			).indexOf(a.lineValue.toLowerCase());
+			const indexB = ADDRESSESLINEORDERCONSTANTS.map((v) =>
+				v.toLowerCase(),
+			).indexOf(b.lineValue.toLowerCase());
 			if (indexA === -1 && indexB === -1) return 0; // a and b are not in the order array, consider them equal
 			if (indexA === -1) return 1; // a is not in the order array, it should come after b
 			if (indexB === -1) return -1; // b is not in the order array, it should come after a
-
 			return indexA - indexB; // both a and b are in the order array, sort them based on their positions
 		})
 		.reduce(
@@ -73,48 +74,48 @@ function generateChangeLogs(changes: Change[], events: Event[]): string[] {
 			},
 			{} as Record<string, ChangeGroup[]>,
 		);
-	console.log(result);
 
-	return combinedChanges;
+	return getLogs(result);
 }
 
-function getLogs(
-	change: Change,
-	sameLine: boolean,
-	log: string,
-	currentPathvalue: string,
-) {
-	let extralog = log;
-	switch (change.type) {
-		case "ADD":
-			if (sameLine) {
-				extralog = `${log}  ${change.to.map((to) => to.value).join(",")}`;
-			} else {
-				extralog = `${getOperationDescription(
-					change.type,
-				)} ${currentPathvalue} ${change.to.map((to) => to.value).join(",")}`;
+function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
+	let extralog = "";
+	const combinedChanges: string[] = [];
+	for (const [key, value] of Object.entries(changes)) {
+		extralog = "";
+		for (const change of value) {
+			if (change.type === "ADD") {
+				if (extralog === "") extralog = `Added${toCamelCase(key)} ${change.to}`;
+				else {
+					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
+						change.to
+					}`;
+				}
+			} else if (change.type === "UPDATE") {
+				if (extralog === ""){
+					extralog = `${toCamelCase(key)} changed from ${
+						change.from
+					} to ${change.to}`;
+                }
+				else {
+					combinedChanges.push(extralog.trim());
+					extralog = `${toCamelCase(key)} changed from ${change.from} to ${
+						change.to
+					}`;
+				}
+			} else if (change.type === "REMOVE") {
+				if (extralog === "")
+					extralog = `Removed ${toCamelCase(key)} ${toCamelCase(
+						change.lineValue,
+					)}-${change.from}`;
+				else
+					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
+						change.from}`;
 			}
-			break;
-		case "UPDATE":
-			extralog = `${currentPathvalue} ${getOperationDescription(
-				change.type,
-			)} from ${change.from.map((from) => from.value).join(",")} to ${change.to
-				.map((to) => to.value)
-				.join(",")}`;
-			break;
-		case "REMOVE":
-			if (sameLine) {
-				extralog = `${log}  ${change.from.map((from) => from.value).join(",")}`;
-			} else {
-				extralog = `${getOperationDescription(
-					change.type,
-				)} ${currentPathvalue} ${change.from
-					.map((from) => from.value)
-					.join(",")}`;
-			}
-			break;
+		}
+		combinedChanges.push(extralog.trim());
 	}
-	return extralog;
+	return combinedChanges;
 }
 
 function toCamelCase(entityType: string): string {
@@ -140,6 +141,11 @@ function toAuditLogCase(entityType: string): string {
 	return entityTypeValue;
 }
 
+/**
+ * This function returns the description of the operation
+ * @param operation operation to be processed
+ * @returns operation description
+ */
 function getOperationDescription(operation: string): string {
 	const operationMap: { [key: string]: string } = {
 		ADD: "Added",
@@ -164,13 +170,13 @@ function processLogNode(node: Node): Logs {
 		user: node.user,
 		logs:
 			node.changes && node.changes.length > 0
-				? generateChangeLogs(node.changes, node.events)
+				? generateChangeLogs(node.changes, node.events, node)
 				: [],
 	};
 }
 
 function printLogs(logs: Logs[]): void {
-	//console.log(JSON.stringify(logs, null, 2));
+	console.log(JSON.stringify(logs, null, 2));
 }
 
 fs.readFile(filePath, "utf8", (err, data) => {
