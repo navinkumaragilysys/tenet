@@ -85,32 +85,35 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 		extralog = "";
 		for (const change of value) {
 			if (change.type === "ADD") {
-				if (extralog === "") extralog = `Added${toCamelCase(key)} ${change.to}`;
+				if (extralog === "")
+					extralog = `${getOperationDescription(change.type)}${toCamelCase(
+						key,
+					)} ${change.to}`;
 				else {
 					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
 						change.to
 					}`;
 				}
 			} else if (change.type === "UPDATE") {
-				if (extralog === ""){
-					extralog = `${toCamelCase(key)} changed from ${
-						change.from
-					} to ${change.to}`;
-                }
-				else {
+				if (extralog === "") {
+					extralog = `${toCamelCase(key)} ${toCamelCase(change.lineValue)} ${getOperationDescription(
+						change.type,
+					).toLowerCase()} from ${change.from} to ${change.to}`;
+				} else {
 					combinedChanges.push(extralog.trim());
-					extralog = `${toCamelCase(key)} changed from ${change.from} to ${
-						change.to
-					}`;
+					extralog = `${toCamelCase(key)} ${toCamelCase(change.lineValue)} ${getOperationDescription(
+						change.type,
+					).toLowerCase()} from ${change.from} to ${change.to}`;
 				}
 			} else if (change.type === "REMOVE") {
 				if (extralog === "")
-					extralog = `Removed ${toCamelCase(key)} ${toCamelCase(
-						change.lineValue,
-					)}-${change.from}`;
+					extralog = `${getOperationDescription(change.type)} ${toCamelCase(
+						key,
+					)} ${toCamelCase(change.lineValue)}-${change.from}`;
 				else
 					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
-						change.from}`;
+						change.from
+					}`;
 			}
 		}
 		combinedChanges.push(extralog.trim());
