@@ -15,14 +15,53 @@ import {
 const filePath = "./AuditCommitByFilter.json";
 
 /**
- * Generates change logs based on the provided changes and node.
+ * Generates change logs based on the provided changes and events.
  *
  * @param changes - An array of changes.
  * @param events - An array of events.
  * @returns An array of change logs.
  */
 function generateChangeLogs(changes: Change[], events: Event[]): string[] {
-	const result = changes
+	const extralog: string[] = [];
+	if (events != null && events.length > 0) {
+		extralog.push(...getEventLog(events));
+	}
+	if (changes != null && changes.length > 0) {
+		extralog.push(...getLogs(getChanges(changes)));
+	}
+	return extralog;
+}
+
+/**
+ * Generate Event log based on the provided events
+ * @param events Array[] of events
+ * @returns String[] of event logs
+ */
+function getEventLog(events: Event[]): string[] {
+	const eventLog: string[] = [];
+	for (const event of events) {
+		const matchingEvent = AUDITLOGAPTHCONSTANTS.EVENTS[event.name];
+		if (matchingEvent) {
+			eventLog.push(matchingEvent.name);
+		}
+		if (event.attributes) {
+			event.attributes.map((attribute) => {
+				const pathValue = attribute.path.map((path) => path.value).join(" ");
+				const lineValue = attribute.values.map((path) => path.value).join("_");
+				eventLog.push(`${toAuditLogCase(pathValue)}${toCamelCase(lineValue)}`);
+			});
+		}
+	}
+	return eventLog;
+}
+
+/**
+ * Generate changes based on the provided changes
+ * @param changes  Array[] of changes
+ * @returns  Record<string, ChangeGroup[]>
+ */
+function getChanges(changes: Change[]): Record<string, ChangeGroup[]> {
+	return changes
 		.map((change) => {
 			// Transform the changes into groups
 			let pathValue = change.path
@@ -72,7 +111,6 @@ function generateChangeLogs(changes: Change[], events: Event[]): string[] {
 			},
 			{} as Record<string, ChangeGroup[]>,
 		);
-	return getLogs(result);
 }
 
 /**
@@ -89,20 +127,25 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 			if (change.type === "ADD") {
 				if (extralog === "")
 					extralog = `${getOperationDescription(change.type)}${toCamelCase(
-						key,
-					)} ${change.to}`;
+						key.trim(),
+					)} ${toCamelCase(change.lineValue.trim())}- ${change.to}`;
 				else {
-					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
+					extralog = `${extralog}, ${toCamelCase(change.lineValue.trim())}- ${
 						change.to
 					}`;
 				}
 			} else if (change.type === "UPDATE") {
 				if (extralog === "") {
-					extralog = `${toCamelCase(key)} ${toCamelCase(
-						change.lineValue,
-					)} ${getOperationDescription(change.type).toLowerCase()} from ${
-						change.from
-					} to ${change.to}`;
+					extralog =
+						key.toLowerCase().trim() === change.lineValue.toLowerCase().trim()
+							? `${toCamelCase(key)} ${getOperationDescription(
+									change.type,
+							  ).toLowerCase()} from ${change.from} to ${change.to}`
+							: `${toCamelCase(key)} ${toCamelCase(
+									change.lineValue,
+							  )} ${getOperationDescription(change.type).toLowerCase()} from ${
+									change.from
+							  } to ${change.to}`;
 				} else {
 					combinedChanges.push(extralog.trim());
 					extralog = `${toCamelCase(key)} ${toCamelCase(
@@ -133,13 +176,26 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
  * @returns returns the entity type in camel case
  */
 function toCamelCase(entityType: string): string {
-	if (entityType === entityType.toUpperCase()) {
-		return entityType;
-	}
-	const replacedEntityType = entityType.replace(/[A-Z]/g, " $&");
-	return replacedEntityType[0].toUpperCase() + replacedEntityType.slice(1);
+	// Split the string into words
+	const words = entityType.split(" ");
+
+	// Map each word to its camel case version, unless it's already in uppercase
+	const camelCasedWords = words.map((word) =>
+		word === word.toUpperCase()
+			? word
+			: word[0].toUpperCase() + word.slice(1).toLowerCase(),
+	);
+
+	// Join the words back together
+	return camelCasedWords.join(" ");
 }
 
+/**
+ * Provides the audit log case for the entity type
+* @param entityType entity type to be converted to audit log case
+ * @returns returns the entity type in audit log case
+ * !Important: use this function only when you want to change the eventType to audit log case
+ */
 function toAuditLogCase(entityType: string): string {
 	let entityTypeValue = entityType;
 	entityTypeValue = AUDITLOGAPTHCONSTANTS.CHANGES.find((change) => {
@@ -174,7 +230,6 @@ function getOperationDescription(operation: string): string {
  * @param node node to be processed
  * @returns logs
  * * Please note that the return type is Logs
- * TODO: implement the function to process the node
  */
 function processLogNode(node: Node): Logs {
 	return {
@@ -182,10 +237,7 @@ function processLogNode(node: Node): Logs {
 		label: toCamelCase(node.label ? node.label : ""),
 		changeCount: node.changes?.length || node.events?.length || 0,
 		user: node.user,
-		logs:
-			node.changes && node.changes.length > 0
-				? generateChangeLogs(node.changes, node.events)
-				: [],
+		logs: generateChangeLogs(node.changes, node.events),
 	};
 }
 
