@@ -43,6 +43,8 @@ function getEventLog(events: Event[]): string[] {
 		const matchingEvent = AUDITLOGAPTHCONSTANTS.EVENTS[event.name];
 		if (matchingEvent) {
 			eventLog.push(matchingEvent.name);
+		} else {
+			eventLog.push(event.name);
 		}
 		if (event.attributes) {
 			event.attributes.map((attribute) => {
@@ -67,7 +69,7 @@ function getChanges(changes: Change[]): Record<string, ChangeGroup[]> {
 			let pathValue = change.path
 				?.slice(0, change.path.length - 1)
 				.map((path) => path.value)
-				.join(" ");
+				.join("/");
 			const lineValue = change.path
 				?.slice(change.path.length - 1, change.path.length)
 				.map((path) => path.value)
@@ -79,10 +81,11 @@ function getChanges(changes: Change[]): Record<string, ChangeGroup[]> {
 			const toValue = change.to?.map((to) => to.value).join(",");
 			const changeGroup: ChangeGroup = {
 				type: change.type,
-				pathvalue: toCamelCase(pathValue),
+				pathvalue: pathValue,
 				lineValue: lineValue,
 				from: fromValue,
 				to: toValue,
+				path: change.path,
 			};
 			return changeGroup;
 		})
@@ -123,49 +126,65 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 	const combinedChanges: string[] = [];
 	for (const [key, value] of Object.entries(changes)) {
 		extralog = "";
+		let previousPath = "";
+		let isSamePath = false;
 		for (const change of value) {
-			if (change.type === "ADD") {
-				if (extralog === "")
-					extralog = `${getOperationDescription(change.type)}${toCamelCase(
-						key.trim(),
-					)} ${toCamelCase(change.lineValue.trim())}- ${change.to}`;
-				else {
-					extralog = `${extralog}, ${toCamelCase(change.lineValue.trim())}- ${
-						change.to
-					}`;
-				}
-			} else if (change.type === "UPDATE") {
-				if (extralog === "") {
-					extralog =
-						key.toLowerCase().trim() === change.lineValue.toLowerCase().trim()
-							? `${toCamelCase(key)} ${getOperationDescription(
-									change.type,
-							  ).toLowerCase()} from ${change.from} to ${change.to}`
-							: `${toCamelCase(key)} ${toCamelCase(
-									change.lineValue,
-							  )} ${getOperationDescription(change.type).toLowerCase()} from ${
-									change.from
-							  } to ${change.to}`;
-				} else {
-					combinedChanges.push(extralog.trim());
-					extralog = `${toCamelCase(key)} ${toCamelCase(
-						change.lineValue,
-					)} ${getOperationDescription(change.type).toLowerCase()} from ${
-						change.from
-					} to ${change.to}`;
-				}
-			} else if (change.type === "REMOVE") {
-				if (extralog === "")
-					extralog = `${getOperationDescription(change.type)} ${toCamelCase(
-						key,
-					)} ${toCamelCase(change.lineValue)}-${change.from}`;
-				else
-					extralog = `${extralog}, ${toCamelCase(change.lineValue)}- ${
-						change.from
-					}`;
+			const path = change.path
+				.slice(0, change.path.length - 1)
+				.map((path) => {
+					return toCamelCase(path.value);
+				})
+				.join("");
+			const lineValue = change.path
+				.slice(change.path.length - 1, change.path.length)
+				.map((path) => {
+					return toCamelCase(path.value);
+				})
+				.join("/");
+
+			const pathValue = `${change.type}${key}${path}`;
+			if (previousPath === "" || previousPath !== pathValue) {
+				previousPath = pathValue;
+				isSamePath = false;
+				if (extralog !== "") combinedChanges.push(extralog.trim());
+				extralog = "";
+			} else {
+				isSamePath = true;
+			}
+
+			switch (change.type) {
+				case "ADD":
+					extralog = !isSamePath
+						? `${getOperationDescription(change.type)} ${toCamelCase(
+								key,
+						  )}/${lineValue} ${change.to}`
+						: `${extralog}, ${lineValue}- ${change.to}`;
+					break;
+					
+				case "UPDATE":
+					console.log(
+						`${getOperationDescription(change.type)} <-> ${toCamelCase(
+							key,
+						)} <> ${path} #SAME?#=${isSamePath} /${lineValue} from=${
+							change.from
+						} to=${change.to}`,
+					);
+					combinedChanges.push(
+						`${toCamelCase(key)}/${lineValue} ${getOperationDescription(
+							change.type,
+						)} from ${change.from} to ${change.to}`,
+					);
+					break;
+				case "REMOVE":
+					extralog = !isSamePath
+						? `${getOperationDescription(change.type)} ${toCamelCase(
+								key,
+						  )}/${lineValue}- ${change.from}`
+						: `${extralog}, ${lineValue}- ${change.from}`;
+					break;
 			}
 		}
-		combinedChanges.push(extralog.trim());
+		if (extralog !== "") combinedChanges.push(extralog.trim());
 	}
 	return combinedChanges;
 }
@@ -177,7 +196,7 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
  */
 function toCamelCase(entityType: string): string {
 	// Split the string into words
-	const words = entityType.split(" ");
+	const words = entityType.split(/(?=[A-Z])/);
 
 	// Map each word to its camel case version, unless it's already in uppercase
 	const camelCasedWords = words.map((word) =>
@@ -187,12 +206,12 @@ function toCamelCase(entityType: string): string {
 	);
 
 	// Join the words back together
-	return camelCasedWords.join(" ");
+	return camelCasedWords.join("");
 }
 
 /**
  * Provides the audit log case for the entity type
-* @param entityType entity type to be converted to audit log case
+ * @param entityType entity type to be converted to audit log case
  * @returns returns the entity type in audit log case
  * !Important: use this function only when you want to change the eventType to audit log case
  */
@@ -242,7 +261,18 @@ function processLogNode(node: Node): Logs {
 }
 
 function printLogs(logs: Logs[]): void {
-	console.log(JSON.stringify(logs, null, 2));
+	const fileName = `${Math.random().toString(36).substring(2, 15)}.json`;
+
+	// Stringify the logs object
+	const data = JSON.stringify(logs, null, 2);
+
+	fs.writeFile(fileName, data, (err) => {
+		if (err) {
+			console.error("Error writing file", err);
+		} else {
+			console.log("Successfully wrote file");
+		}
+	});
 }
 
 fs.readFile(filePath, "utf8", (err, data) => {

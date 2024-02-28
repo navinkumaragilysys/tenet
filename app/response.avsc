@@ -1,0 +1,37 @@
+{
+  "name": "AuditLog",
+  "namespace": "com.marriott.mmf",
+  "doc": "This entity will contain multiple information",
+  "type": "record",
+  "fields": [
+    {
+      "name": "entityName",
+      "doc": "Entity Name",
+      "type": "string"
+    },
+    {
+      "name": "label",
+      "doc": "Label",
+      "type": "string"
+    },
+    {
+      "name": "changeCount",
+      "doc": "Change Count",
+      "type": "long"
+    },
+    {
+      "name": "user",
+      "doc": "User",
+      "type": "string"
+    },
+    {
+      "name": "logs",
+      "default": null,
+      "doc": "Audit Log Array",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    }
+  ]
+}

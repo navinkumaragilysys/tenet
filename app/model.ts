@@ -100,4 +100,5 @@ export type ChangeGroup = {
 	type: string;
 	from: string;
 	to: string;
+	path: Path[];
 };
