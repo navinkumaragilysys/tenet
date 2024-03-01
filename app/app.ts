@@ -125,68 +125,55 @@ function getLogs(changes: Record<string, ChangeGroup[]>): string[] {
 	let extralog = "";
 	const combinedChanges: string[] = [];
 	for (const [key, value] of Object.entries(changes)) {
-		extralog = "";
-		let previousPath = "";
-		let isSamePath = false;
-		for (const change of value) {
-			const path = change.path
-				.slice(0, change.path.length - 1)
-				.map((path) => {
-					return toCamelCase(path.value);
-				})
-				.join("");
-			const lineValue = change.path
-				.slice(change.path.length - 1, change.path.length)
-				.map((path) => {
-					return toCamelCase(path.value);
-				})
-				.join("/");
-
-			const pathValue = `${change.type}${key}${path}`;
-			if (previousPath === "" || previousPath !== pathValue) {
-				previousPath = pathValue;
-				isSamePath = false;
-				if (extralog !== "") combinedChanges.push(extralog.trim());
-				extralog = "";
-			} else {
-				isSamePath = true;
-			}
-
-			switch (change.type) {
-				case "ADD":
-					extralog = !isSamePath
-						? `${getOperationDescription(change.type)} ${toCamelCase(
-								key,
-						  )}/${lineValue} ${change.to}`
-						: `${extralog}, ${lineValue}- ${change.to}`;
-					break;
-					
-				case "UPDATE":
-					console.log(
-						`${getOperationDescription(change.type)} <-> ${toCamelCase(
-							key,
-						)} <> ${path} #SAME?#=${isSamePath} /${lineValue} from=${
-							change.from
-						} to=${change.to}`,
-					);
-					combinedChanges.push(
-						`${toCamelCase(key)}/${lineValue} ${getOperationDescription(
-							change.type,
-						)} from ${change.from} to ${change.to}`,
-					);
-					break;
-				case "REMOVE":
-					extralog = !isSamePath
-						? `${getOperationDescription(change.type)} ${toCamelCase(
-								key,
-						  )}/${lineValue}- ${change.from}`
-						: `${extralog}, ${lineValue}- ${change.from}`;
-					break;
-			}
-		}
+		extralog = processLogs(extralog, value, key, combinedChanges);
 		if (extralog !== "") combinedChanges.push(extralog.trim());
 	}
 	return combinedChanges;
+}
+
+function processLogs(extralog: string, value: ChangeGroup[], key: string, combinedChanges: string[]) {
+	let processedlog = extralog;
+	let previousPath = "";
+	let isSamePath = false;
+	for (const change of value) {
+		const path = change.path
+			.slice(0, change.path.length - 1)
+			.map((path) => { return toCamelCase(path.value); })
+			.join("");
+		const lineValue = change.path
+			.slice(change.path.length - 1, change.path.length)
+			.map((path) => { return toCamelCase(path.value); })
+			.join("/");
+		const pathValue = `${change.type}${key}${path}`;
+		if (previousPath === "" || previousPath !== pathValue) {
+			previousPath = pathValue;
+			isSamePath = false;
+			if (processedlog !== "") combinedChanges.push(processedlog.trim());
+			processedlog = "";
+		} else {
+			isSamePath = true;
+		}
+		processedlog = createLogs(change, processedlog, isSamePath, key, lineValue, path, combinedChanges);
+	}
+	
+	return processedlog;
+}
+
+function createLogs(change: ChangeGroup, extralog: string, isSamePath: boolean, key: string, lineValue: string, path: string, combinedChanges: string[]) {
+	switch (change.type) {
+		case "ADD":
+			extralog = !isSamePath
+				? `${getOperationDescription(change.type)} ${toCamelCase(key)}/${lineValue} ${change.to}` : `${extralog}, ${lineValue}- ${change.to}`;
+			break;
+		case "UPDATE":
+			console.log(`${getOperationDescription(change.type)} <-> ${toCamelCase(key)} <> ${path} #SAME?#=${isSamePath} /${lineValue} from=${change.from} to=${change.to}`);
+			combinedChanges.push(`${toCamelCase(key)}/${lineValue} ${getOperationDescription(change.type)} from ${change.from} to ${change.to}`);
+			break;
+		case "REMOVE":
+			extralog = !isSamePath ? `${getOperationDescription(change.type)} ${toCamelCase(key)}/${lineValue}- ${change.from}` : `${extralog}, ${lineValue}- ${change.from}`;
+			break;
+	}
+	return extralog;
 }
 
 /**
@@ -259,6 +246,7 @@ function processLogNode(node: Node): Logs {
 		logs: generateChangeLogs(node.changes, node.events),
 	};
 }
+
 
 function printLogs(logs: Logs[]): void {
 	const fileName = `${Math.random().toString(36).substring(2, 15)}.json`;
