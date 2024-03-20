@@ -1,26 +1,38 @@
-import * as fs from "fs";
-import { AuditLog } from "./auditlog.js";
-import type { GraphResponse, Logs } from "./model.js";
+import { Kafka, Partitioners } from 'kafkajs';
 
-const filePath = "./AuditCommitByFilter.json";
-function printLogs(logs: Logs[]): void {
-	console.log(JSON.stringify(logs, null, 2));
+const kafka = new Kafka({
+    clientId: 'my-app',
+    brokers: ['localhost:9092']
+});
+
+const topic = 'my-topic';
+const producer = kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner });
+const consumer = kafka.consumer({ groupId: 'timeConsumer'  });
+const run = async () => {
+    // Producing
+    await producer.connect();
+    setInterval(async () => {
+        await producer.send({
+            topic,
+            messages: [
+                { value: `${Math.random().toString(36).substring(2, 15).toLowerCase()}.json` },
+            ],
+        });
+        // Removed the console.log for sent messages
+    }, 10000);
+
+
+    // Consuming
+    await consumer.connect();
+    await consumer.subscribe({ topic });
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            console.log({
+                value: message.value ? message.value.toString() : null,
+            });
+        },
+    });
 }
 
+run().catch(console.error);
 
-fs.readFile(filePath, "utf8", (err, data) => {
-	if (err) {
-		console.error("Error reading file:", err);
-		return;
-	}
-
-	try {
-		const jsonData: GraphResponse = JSON.parse(data);
-		const logs: Logs[] = jsonData.data.auditCommitByFilter.nodes.map((node) =>
-			AuditLog.processLogNode(node)
-		);
-		printLogs(logs);
-	} catch (err) {
-		console.error("Error parsing JSON:", err);
-	}
-});
